@@ -37,10 +37,6 @@ install(DIRECTORY rviz
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(DIRECTORY bag
-        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
 ################################################################################
 # Test
 ################################################################################

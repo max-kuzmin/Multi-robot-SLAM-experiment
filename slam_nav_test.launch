@@ -38,7 +38,7 @@
     <param name="temporalUpdate" value="0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="120"/>
+    <param name="particles" value="50"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -51,10 +51,10 @@
     <param name="str" value="0.01"/>
     <param name="stt" value="0.02"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-50.0"/>
-    <param name="ymin" value="-50.0"/>
-    <param name="xmax" value="50.0"/>
-    <param name="ymax" value="50.0"/>
+    <param name="xmin" value="-30.0"/>
+    <param name="ymin" value="-30.0"/>
+    <param name="xmax" value="30.0"/>
+    <param name="ymax" value="30.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
