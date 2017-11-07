@@ -19,8 +19,8 @@
       <publishWheelJointState>true</publishWheelJointState>
       <legacyMode>false</legacyMode>
       <updateRate>100</updateRate>
-      <leftJoint>wheel_left_joint</leftJoint>
-      <rightJoint>wheel_right_joint</rightJoint>
+      <leftJoint>wheel_right_joint</leftJoint>
+      <rightJoint>wheel_left_joint</rightJoint>
       <wheelSeparation>0.287</wheelSeparation>
       <wheelDiameter>0.066</wheelDiameter>
       <wheelAcceleration>1</wheelAcceleration>
@@ -78,8 +78,8 @@
     <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
       <alwaysOn>true</alwaysOn>
       <bodyName>imu_link</bodyName>
-      <topicName>/imu</topicName>
-      <serviceName>/imu_service</serviceName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
       <gaussianNoise>0.0</gaussianNoise>
       <updateRate>100.0</updateRate>
       <imu>
@@ -138,7 +138,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_lds_lfcd_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/scan</topicName>
+        <topicName>scan</topicName>
         <frameName>base_scan</frameName>
       </plugin>
     </sensor>
