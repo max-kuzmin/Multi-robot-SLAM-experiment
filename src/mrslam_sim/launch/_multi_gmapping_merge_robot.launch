@@ -69,7 +69,8 @@
 
 		<node pkg="map_to_pose" type="map_to_pose_node" name="map_to_pose"/>
 		<node pkg="map_merging" type="map_merging" name="map_merging" output="screen">
-			<param name="~max_comm_distance" value="10.0"/>
+			<!--This package only work good with 100% connection time-->
+			<param name="~max_comm_distance" value="1000.0"/>
 			<!--Set to 0, because all required transforms made in map_to_posestamped; need to set it only in real experiments-->
 			<param name="init_pose_x" value="0"/>
 			<param name="init_pose_y" value="0"/>
