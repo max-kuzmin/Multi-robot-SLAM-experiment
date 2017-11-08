@@ -48,6 +48,7 @@
 	    <param name="llsamplestep" value="0.01"/>
 	    <param name="lasamplerange" value="0.005"/>
 	    <param name="lasamplestep" value="0.005"/>
+         <remap from="map" to="map_local"/>
 	  </node>
 
         <node pkg="move_base" type="move_base" respawn="false" name="move_base">
@@ -58,6 +59,7 @@
 		    <rosparam file="$(find mrslam_sim)/param/global_costmap_params.yaml" command="load" />
 		    <rosparam file="$(find mrslam_sim)/param/move_base_params.yaml" command="load" />
 		    <rosparam file="$(find mrslam_sim)/param/dwa_local_planner_params.yaml" command="load" />
+		    <remap from="map" to="map_merging/map"/>
          </node>
 
 	    <node pkg="tf" type="static_transform_publisher" name="world_tf" args="0 0 0 0 0 0 world $(arg robot_name)/$(arg robot_name)/map 100"/>
@@ -67,11 +69,12 @@
 
 		<node pkg="map_to_pose" type="map_to_pose_node" name="map_to_pose"/>
 		<node pkg="map_merging" type="map_merging" name="map_merging" output="screen">
-			<param name="~max_comm_distance" value="1000.0"/>
+			<param name="~max_comm_distance" value="10.0"/>
 			<!--Set to 0, because all required transforms made in map_to_posestamped; need to set it only in real experiments-->
 			<param name="init_pose_x" value="0"/>
 			<param name="init_pose_y" value="0"/>
 			<param name="init_pose_z" value="0"/>
+			<param name="~map_topic" value="map_local"/>
 		</node>
 
     </group>

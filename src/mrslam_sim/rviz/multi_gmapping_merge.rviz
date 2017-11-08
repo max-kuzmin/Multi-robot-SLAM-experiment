@@ -438,7 +438,7 @@ Visualization Manager:
       Color Scheme: map
       Draw Behind: false
       Enabled: false
-      Name: MapMerge1
+      Name: MapMerge2
       Topic: /robot2/map_merging/map
       Unreliable: false
       Value: false
