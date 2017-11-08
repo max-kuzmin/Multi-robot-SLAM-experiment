@@ -2,6 +2,8 @@ build/
 install/
 devel/
 *.*~
+*.gv
+*.pdf
 
 # Catkin custom files
 CATKIN_IGNORE

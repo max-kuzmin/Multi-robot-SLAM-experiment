@@ -71,6 +71,6 @@
   </node>
 
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/slam_nav_one.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/one_gmapping.rviz"/>
 
 </launch>
