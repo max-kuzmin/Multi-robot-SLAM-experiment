@@ -8,7 +8,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <export>
   <run_depend>turtlebot3</run_depend>
-  <run_depend>turtlebot3_msgs</run_depend>
-  <run_depend>turtlebot3_gazebo</run_depend>
+  <run_depend>turtlebot3_simulations</run_depend>
+  <run_depend>multimaster_fkie</run_depend>
   </export>
 </package>
