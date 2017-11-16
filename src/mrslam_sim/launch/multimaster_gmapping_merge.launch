@@ -27,7 +27,11 @@
 
   <group ns="$(arg robot_name)">
     <node name="master_discovery_fkie" pkg="master_discovery_fkie" type="master_discovery"/>
-    <node name="master_sync_fkie" pkg="master_sync_fkie" type="master_sync"/>
+    <node name="master_sync_fkie" pkg="master_sync_fkie" type="master_sync">
+	<!-- map_to_pose, map_to_rviz, world_tf only for visualisation in rviz-->
+	<rosparam param="sync_nodes">['*gmapping', '*map_to_pose', '*map_to_rviz', '*world_tf']</rosparam>
+	<rosparam param="ignore_topics">['*scan','*metadata', '*entropy']</rosparam>
+    </node>
   </group>
 
 
