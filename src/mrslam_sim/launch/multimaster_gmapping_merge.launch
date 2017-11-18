@@ -5,11 +5,12 @@
     <arg name="y"/>
     <arg name="robot_name"/>
     <arg name="gazebo_gui" default="false"/>
+    <param name="use_sim_time" value="false"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="worlds/willowgarage.world"/>
     <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
+    <arg name="use_sim_time" value="false"/>
     <arg name="gui" value="$(arg gazebo_gui)"/>
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>

@@ -80,6 +80,17 @@ void MapMerging::topicSubscribing() {
       }
     }
   }
+
+
+  std::string map_topic_name;
+  for(int i = 0; i < (int)poses_.size(); i++) {
+    map_topic_name = robotNameParsing(poses_[i].name)+"/"+map_topic_;
+    if(!mapFound(map_topic_name, maps_)) {
+      maps_.push_back(Map(map_topic_name, false));
+      map_subsribers_.push_back(node_.subscribe<nav_msgs::OccupancyGrid>(map_topic_name, 1, boost::bind(&MapMerging::mapCallback, this, _1, maps_.size()-1)));
+      ROS_INFO("[%s]:Subscribe to MAP topic: %s.", (ros::this_node::getName()).c_str(), map_topic_name.c_str());
+    }
+  }
   
   if(my_id_ == UNKNOWN) {
     ROS_WARN("[%s]:Can not get robot's pose.", (ros::this_node::getName()).c_str());
@@ -130,16 +141,6 @@ void MapMerging::handShaking() {
 void MapMerging::mapMerging() {
   if(my_id_ == UNKNOWN || tm_id_ == UNKNOWN)
     return;
-  
-  std::string map_topic_name;
-  for(int i = 0; i < (int)poses_.size(); i++) {
-    map_topic_name = robotNameParsing(poses_[i].name)+"/"+map_topic_;
-    if(!mapFound(map_topic_name, maps_)) {
-      maps_.push_back(Map(map_topic_name, false));
-      map_subsribers_.push_back(node_.subscribe<nav_msgs::OccupancyGrid>(map_topic_name, 1, boost::bind(&MapMerging::mapCallback, this, _1, maps_.size()-1)));
-      ROS_INFO("[%s]:Subscribe to MAP topic: %s.", (ros::this_node::getName()).c_str(), map_topic_name.c_str());
-    }
-  }
   
   bool map_merging_end = false;
   if(maps_[my_id_].received) {

@@ -29,6 +29,7 @@ int main(int argc, char** argv)
             msg.pose.position.x = ts.transform.translation.x;
             msg.pose.position.y = ts.transform.translation.y;
             msg.pose.position.z = ts.transform.translation.z;
+            msg.header.stamp = ros::Time(0);
             pub.publish(msg);
         }
         catch (tf2::TransformException& ex)
