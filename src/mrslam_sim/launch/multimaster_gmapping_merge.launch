@@ -1,16 +1,18 @@
-<!-- How to use: roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=1 y:=2 robot_name:=robot1 -->
+<!-- How to use: 
+First PC:  roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=0 y:=0 robot_name:=robot1
+Second PC: roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=10 y:=10 robot_name:=robot2 -->
 
 <launch>
     <arg name="x"/>
     <arg name="y"/>
     <arg name="robot_name"/>
     <arg name="gazebo_gui" default="false"/>
-    <param name="use_sim_time" value="false"/>
+    <param name="use_sim_time" value="true"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="worlds/willowgarage.world"/>
+    <arg name="world_name" value="$(find mrslam_sim)/worlds/willowgarage.world"/>
     <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="false"/>
+    <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="$(arg gazebo_gui)"/>
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>

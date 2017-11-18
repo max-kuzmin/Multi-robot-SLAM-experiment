@@ -103,7 +103,6 @@ void MapMerging::topicSubscribing() {
 void MapMerging::handShaking() {
   if(my_id_ == UNKNOWN || tm_id_ != UNKNOWN)
     return;
-
   geometry_msgs::Pose my_pose, tm_pose;
   if(poses_[my_id_].received && getInitPose(my_name_, my_pose)) {
     my_pose.position.x += poses_[my_id_].data.pose.position.x;
@@ -111,7 +110,6 @@ void MapMerging::handShaking() {
     my_pose.position.z += poses_[my_id_].data.pose.position.z;
     poses_[my_id_].received = false;
     //std::cout << "[" << ros::this_node::getName() << "] " << poses_[my_id_].data.header.frame_id << " x = " << my_pose.position.x << " y = " << my_pose.position.y << std::endl;
-    
     for(int i = 0; i < (int)poses_.size(); i++) {
       if(i != my_id_ && !map_has_been_merged_[i]) {
     tm_name_ = robotNameParsing(poses_[i].name);
@@ -230,7 +228,7 @@ std::string MapMerging::robotNameParsing(std::string s) {
 bool MapMerging::getInitPose(std::string name, geometry_msgs::Pose &pose) {
   if(ros::param::get(name+"/map_merging/init_pose_x", pose.position.x) &&
      ros::param::get(name+"/map_merging/init_pose_y", pose.position.y) &&
-     ros::param::get(name+"/map_merging/init_pose_z", pose.position.z)) {
+     ros::param::get(name+"/map_merging/init_pose_z", pose.position.z) || true) { //fix for multimaster
     return true;
   }
   return false;
@@ -247,7 +245,7 @@ bool MapMerging::getRelativePose(std::string n, std::string m, geometry_msgs::Po
      ros::param::get(n+"/map_merging/init_pose_z", p.position.z) &&
      ros::param::get(m+"/map_merging/init_pose_x", q.position.x) &&
      ros::param::get(m+"/map_merging/init_pose_y", q.position.y) &&
-     ros::param::get(m+"/map_merging/init_pose_z", q.position.z)) {
+     ros::param::get(m+"/map_merging/init_pose_z", q.position.z) || true) { //fix for multimaster
     delta.position.x = round((p.position.x - q.position.x) / resolution);
     delta.position.y = round((p.position.y - q.position.y) / resolution);
     delta.position.z = round((p.position.z - q.position.z) / resolution);

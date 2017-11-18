@@ -30,6 +30,7 @@ int main(int argc, char** argv)
             msg.pose.position.y = ts.transform.translation.y;
             msg.pose.position.z = ts.transform.translation.z;
             msg.header.stamp = ros::Time(0);
+            msg.header.frame_id = tf_prefix+"map";
             pub.publish(msg);
         }
         catch (tf2::TransformException& ex)
