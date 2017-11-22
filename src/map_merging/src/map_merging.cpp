@@ -137,8 +137,12 @@ void MapMerging::handShaking() {
  * mapMerging()
  */
 void MapMerging::mapMerging() {
-  if(my_id_ == UNKNOWN || tm_id_ == UNKNOWN)
-    return;
+  if(tm_id_ == UNKNOWN) {
+      if(my_id_ != UNKNOWN && maps_[my_id_].received) { //fix to publish local map if merging failed
+          merged_map_publisher_.publish(maps_[my_id_].data);
+      }
+      return;
+  }
   
   bool map_merging_end = false;
   if(maps_[my_id_].received) {
