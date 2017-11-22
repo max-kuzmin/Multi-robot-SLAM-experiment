@@ -9,6 +9,16 @@ Second PC: roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=10 y:=10 ro
     <arg name="gazebo_gui" default="false"/>
     <param name="use_sim_time" value="true"/>
 
+    <group ns="$(arg robot_name)">
+        <node name="master_discovery_fkie" pkg="master_discovery_fkie" type="master_discovery"/>
+        <node name="master_sync_fkie" pkg="master_sync_fkie" type="master_sync">
+            <!-- map_to_pose, map_to_rviz, world_tf only for visualisation in rviz-->
+            <rosparam param="sync_nodes">['*gmapping', '*map_to_pose']</rosparam>
+            <!-- DO NOT sync tf when use gmapping, it will not work -->
+            <rosparam param="ignore_topics">['*scan','*metadata', '*entropy', '*tf']</rosparam>
+        </node>
+    </group>
+
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find mrslam_sim)/worlds/willowgarage.world"/>
     <arg name="paused" value="false"/>
@@ -18,7 +28,7 @@ Second PC: roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=10 y:=10 ro
     <arg name="debug" value="false"/>
   </include>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/multi_gmapping_merge.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/multimaster_gmapping_merge.rviz"/>
 
   <include file="$(find mrslam_sim)/launch/_multi_gmapping_merge_robot.launch" >
     <arg name="x" value="$(arg x)" />
@@ -27,15 +37,5 @@ Second PC: roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=10 y:=10 ro
     <arg name="robot_name" value="$(arg robot_name)" />
     <arg name="model" value="burger"/>
   </include>
-
-  <group ns="$(arg robot_name)">
-    <node name="master_discovery_fkie" pkg="master_discovery_fkie" type="master_discovery"/>
-    <node name="master_sync_fkie" pkg="master_sync_fkie" type="master_sync">
-	<!-- map_to_pose, map_to_rviz, world_tf only for visualisation in rviz-->
-	<rosparam param="sync_nodes">['*gmapping', '*map_to_pose', '*map_to_rviz', '*world_tf']</rosparam>
-	<rosparam param="ignore_topics">['*scan','*metadata', '*entropy']</rosparam>
-    </node>
-  </group>
-
 
 </launch>
