@@ -28,9 +28,9 @@ Second PC: roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=10 y:=10 ro
     <arg name="debug" value="false"/>
   </include>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/multimaster_gmapping_merge.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/mm_gmapping_mapmerging.rviz"/>
 
-  <include file="$(find mrslam_sim)/launch/_multi_gmapping_merge_robot.launch" >
+  <include file="$(find mrslam_sim)/launch/_robot_m_gmapping_mapmerging.launch" >
     <arg name="x" value="$(arg x)" />
     <arg name="y" value="$(arg y)" />
     <arg name="z" value="0" />
