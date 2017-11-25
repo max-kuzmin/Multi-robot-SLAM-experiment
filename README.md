@@ -10,7 +10,7 @@ This simulation uses:
 ##### Working simulations:
 * Multi robot simulation with map_merging algorithm. Requires init positions of robots. Merged map used by move_base.
 ```
-roslaunch mrslam_sim multi_gmapping_merge.launch
+roslaunch mrslam_sim m_gmapping_mapmerging.launch
 ```
 
 * Multi robot simulation with map_merging algorithm. The same as previous put can be ran on different hosts. Connection between hosts established with ad-hoc wifi network. On every host run:
@@ -29,5 +29,5 @@ export ROS_MASTER_URI=http://<your local ip>:<port>
 ```
 It's important to run simulation at the same moment on every host, because Gazebo has some problems with synchronisation. Use names for robot1 and robot2:
 ```
-roslaunch mrslam_sim multimaster_gmapping_merge.launch x:=0 y:=0 robot_name:=robot1
+roslaunch mrslam_sim mm_gmapping_mapmerging.launch x:=0 y:=0 robot_name:=robot1
 ```
