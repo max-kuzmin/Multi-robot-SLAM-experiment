@@ -1,30 +1,32 @@
 <launch>
-    <arg name="gazebo_gui" default="false"/>
+    <arg name="gazebo_gui" default="false" />
 
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="worlds/willowgarage.world"/>
-    <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="$(arg gazebo_gui)"/>
-    <arg name="headless" value="false"/>
-    <arg name="debug" value="false"/>
-  </include>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="worlds/willowgarage.world" />
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="$(arg gazebo_gui)" />
+        <arg name="headless" value="false" />
+        <arg name="debug" value="false" />
+    </include>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/m_gmapping.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/m_gmapping.rviz" />
 
-  <!--Robot 1-->
-  <include file="$(find mrslam_sim)/launch/_robot_m_gmapping.launch" >
-    <arg name="init_pose" value="-x 6 -y -6 -z 0" />
-    <arg name="robot_name" value="robot1" />
-    <arg name="model" value="burger"/>
-  </include>
-
-  <!--Robot 2-->
-  <include file="$(find mrslam_sim)/launch/_robot_m_gmapping.launch" >
-    <arg name="init_pose" value="-x -10 -y 10 -z 0" />
-    <arg name="robot_name" value="robot2" />
-    <arg name="model" value="burger"/>
-  </include>
-
-
+    <!--Robot 1-->
+    <include file="$(find mrslam_sim)/launch/_robot_m_gmapping.launch">
+        <arg name="x" value="6" />
+        <arg name="y" value="-6" />
+        <arg name="z" value="0" />
+        <arg name="robot_name" value="robot1" />
+        <arg name="model" value="burger" />
+    </include>
+    
+    <!--Robot 2-->
+    <include file="$(find mrslam_sim)/launch/_robot_m_gmapping.launch">
+        <arg name="x" value="-10" />
+        <arg name="y" value="10" />
+        <arg name="z" value="0" />
+        <arg name="robot_name" value="robot2" />
+        <arg name="model" value="burger" />
+    </include>
 </launch>

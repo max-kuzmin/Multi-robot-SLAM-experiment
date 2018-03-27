@@ -10,6 +10,7 @@
     <include>
       <uri>model://willowgarage</uri>
     </include>
+    <!-- Change value to slow time in gazebo simulation in cases when PC resources not enough -->
     <physics type='ode'>
       <real_time_update_rate>150</real_time_update_rate>
     </physics>

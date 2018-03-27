@@ -3,12 +3,14 @@
   <name>mrslam_sim</name>
   <version>0.0.0</version>
   <description>The mrslam_sim package</description>
-  <maintainer email="max_kuzmin@outlook.com">MaxGsomGsom</maintainer>
+  <maintainer email="max_kuzmin@outlook.com">Maxim Kuzmin</maintainer>
   <license>TODO</license>
   <buildtool_depend>catkin</buildtool_depend>
   <export>
-  <run_depend>turtlebot3</run_depend>
-  <run_depend>turtlebot3_simulations</run_depend>
-  <run_depend>multimaster_fkie</run_depend>
+  <depend>map_to_pose</depend>
+  <depend>multimaster_fkie</depend>
+  <depend>map_merging</depend>
+  <depend>turtlebot3_description</depend>
+  <depend>multirobot_map_merge</depend>
   </export>
 </package>
