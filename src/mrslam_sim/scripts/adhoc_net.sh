@@ -7,5 +7,6 @@ sudo ip link set wlan0 up
 sudo ip addr add 169.254.34.2/16 dev wlan0
 sudo route add -net 224.0.0.0 netmask 224.0.0.0 wlan0
 
-export ROS_IP=169.254.34.2
-export ROS_MASTER_URI=http://169.254.34.2:11112
+#echo 'export ROS_IP=192.168.217.128' >> ~/.bashrc 
+export ROS_IP=192.168.217.128
+export ROS_MASTER_URI=http://192.168.217.128:11112
