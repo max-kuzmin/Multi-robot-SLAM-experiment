@@ -34,6 +34,6 @@
         
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="world_tf" args="0 0 0 0 0 0 world $(arg robot_name)/$(arg robot_name)/map 100" />
-        <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 $(arg robot_name)/$(arg robot_name)/map $(arg robot_name)/map 100" />
+        <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg robot_name)/map 100" />
     </group>
 </launch>

@@ -29,4 +29,13 @@
         <arg name="robot_name" value="robot2" />
         <arg name="model" value="burger" />
     </include>
+
+    <!--Robot 3-->
+    <include file="$(find mrslam_sim)/launch/_robot_m_gmapping_multirobotmapmerge.launch">
+        <arg name="x" value="5" />
+        <arg name="y" value="-6" />
+        <arg name="z" value="0" />
+        <arg name="robot_name" value="robot3" />
+        <arg name="model" value="burger" />
+    </include>
 </launch>
