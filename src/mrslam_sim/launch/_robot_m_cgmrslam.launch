@@ -1,0 +1,47 @@
+<launch>
+    <arg name="model" default="burger" doc="model type [burger, waffle]" />
+    <arg name="robot_name" />
+    <arg name="x" />
+    <arg name="y" />
+    <arg name="z" />
+    <arg name="r_id" />
+    <arg name="r_count" />
+
+    <group ns="$(arg robot_name)">
+        <param name="tf_prefix" value="$(arg robot_name)" />
+
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg robot_name)_$(arg model) -param robot_description" />
+
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+            <param name="publish_frequency" type="double" value="50.0" />
+        </node>
+
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base">
+            <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+            <rosparam file="$(find mrslam_sim)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find mrslam_sim)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find mrslam_sim)/param/local_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/global_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/move_base_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/dwa_local_planner_params.yaml" command="load" />
+            <!--<remap from="map" to="map_merged"/>-->
+        </node>
+
+        <!--tf_prefix fix for rviz-->
+        <node pkg="tf" type="static_transform_publisher" name="world_tf" args="0 0 0 0 0 0 world $(arg robot_name)/$(arg robot_name)/map 100" />
+        <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg robot_name)/map 100" />
+
+
+        <node name="cg_mrslam" pkg="cg_mrslam" type="cg_mrslam" args="-idRobot $(arg r_id) -nRobots $(arg r_count) -scanTopic scan -mapFrame $(arg robot_name)/map -odomFrame $(arg robot_name)/odom -modality real -publishMap -publishGraph -o testmrslam.g2o" />
+
+        <!--<node pkg="cg_mrslam" type="cg_mrslam" name="cg_mrslam">
+            <param name="idRobot" value="$(arg r_id)"/>
+            <param name="nRobots" value="$(arg r_count)"/>
+            <param name="scanTopic" value="scan"/>
+            <param name="mapFrame" value="$(arg robot_name)/map"/>
+            <param name="odomFrame" value="$(arg robot_name)/odom"/>
+            <param name="modality" value="real"/>
+        </node>-->
+    </group>
+</launch>
