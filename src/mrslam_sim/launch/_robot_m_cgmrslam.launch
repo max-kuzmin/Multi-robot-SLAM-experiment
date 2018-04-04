@@ -33,15 +33,7 @@
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg robot_name)/map 100" />
 
 
-        <node name="cg_mrslam" pkg="cg_mrslam" type="cg_mrslam" args="-idRobot $(arg r_id) -nRobots $(arg r_count) -scanTopic scan -mapFrame $(arg robot_name)/map -odomFrame $(arg robot_name)/odom -modality real -publishMap -publishGraph -o testmrslam.g2o" />
+        <node name="cg_mrslam" pkg="cg_mrslam" type="cg_mrslam" args="-idRobot $(arg r_id) -nRobots $(arg r_count) -scanTopic scan -mapFrame $(arg robot_name)/map -odomFrame $(arg robot_name)/odom -modality real2 -publishMap -publishGraph -o testmrslam.g2o" />
 
-        <!--<node pkg="cg_mrslam" type="cg_mrslam" name="cg_mrslam">
-            <param name="idRobot" value="$(arg r_id)"/>
-            <param name="nRobots" value="$(arg r_count)"/>
-            <param name="scanTopic" value="scan"/>
-            <param name="mapFrame" value="$(arg robot_name)/map"/>
-            <param name="odomFrame" value="$(arg robot_name)/odom"/>
-            <param name="modality" value="real"/>
-        </node>-->
     </group>
 </launch>
