@@ -35,7 +35,7 @@
     </include>
 
     <!--Robot 3-->
-    <include file="$(find mrslam_sim)/launch/_robot_m_cgmrslam.launch">
+    <!--<include file="$(find mrslam_sim)/launch/_robot_m_cgmrslam.launch">
         <arg name="x" value="7" />
         <arg name="y" value="8" />
         <arg name="z" value="0" />
@@ -43,5 +43,5 @@
         <arg name="model" value="burger" />
         <arg name="r_id" value="2" />
         <arg name="r_count" value="3" />
-    </include>
+    </include>-->
 </launch>
