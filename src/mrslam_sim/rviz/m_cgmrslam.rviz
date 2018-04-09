@@ -337,7 +337,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /robot3/scan
+      Topic: /robot0/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -346,12 +346,12 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map3
-      Topic: /robot3/map
+      Topic: /robot0/map
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
@@ -363,15 +363,15 @@ Visualization Manager:
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
       Name: RobotModel3
-      Robot Description: robot3/robot_description
-      TF Prefix: robot3
+      Robot Description: robot0/robot_description
+      TF Prefix: robot0
       Update Interval: 0
       Value: false
       Visual Enabled: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 25; 255; 0
+      Color: 38; 0; 255
       Enabled: true
       Head Diameter: 0.300000012
       Head Length: 0.200000003
@@ -388,7 +388,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot3/move_base/DWAPlannerROS/local_plan
+      Topic: /robot0/move_base/DWAPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -411,7 +411,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot3/move_base/DWAPlannerROS/global_plan
+      Topic: /robot0/move_base/DWAPlannerROS/global_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -419,7 +419,7 @@ Visualization Manager:
       Color: 25; 255; 0
       Enabled: true
       Name: Polygon3
-      Topic: /robot3/move_base/global_costmap/footprint
+      Topic: /robot0/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -435,7 +435,7 @@ Visualization Manager:
       Shaft Length: 0.230000004
       Shaft Radius: 0.00999999978
       Shape: Arrow (Flat)
-      Topic: /robot3/trajectory
+      Topic: /robot0/trajectory
       Unreliable: false
       Value: true
   Enabled: true
@@ -453,9 +453,9 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetGoal
-      Topic: robot1/move_base_simple/goal
+      Topic: robot0/move_base_simple/goal
     - Class: rviz/SetGoal
-      Topic: robot2/move_base_simple/goal
+      Topic: robot1/move_base_simple/goal
   Value: true
   Views:
     Current:
@@ -469,11 +469,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 23.1426563
+      Scale: 28.1238117
       Target Frame: map
       Value: TopDownOrtho (rviz)
-      X: 8.71525669
-      Y: -6.70354033
+      X: 8.58562565
+      Y: 2.44112349
     Saved: ~
 Window Geometry:
   Displays:
