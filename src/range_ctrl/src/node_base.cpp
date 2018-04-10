@@ -23,7 +23,7 @@ class NodeBase
   int r_count;
   int r_id;
   int delta = 0.5;
-  vector<string> topics;
+  vector<string> input_topics, output_topics;
   vector<geometry_msgs::Point> positions;
   vector<bool> are_subs_enabled;
 
@@ -43,29 +43,39 @@ class NodeBase
       node.param("r_count", r_count, 2);
       node.param("r_id", r_id, 0);
 
-      //get list of topics
+      //get list of in topics
       string tempTopics = "";
-      node.param("topics", tempTopics, tempTopics);
-      boost::split(topics, tempTopics, boost::is_any_of("\t "));
+      node.param("input_topics", tempTopics, tempTopics);
+      boost::split(input_topics, tempTopics, boost::is_any_of("\t "));
+
+      //get list of out topics
+      tempTopics = "";
+      node.param("output_topics", tempTopics, tempTopics);
+      boost::split(output_topics, tempTopics, boost::is_any_of("\t "));
+
+      if (input_topics.size() != output_topics.size()) {
+          ROS_ERROR_STREAM("# Number of input and output topics not the same");
+          return;
+      }
 
       //Show topics in log
       string message = "";
-      for (int i=0; i< topics.size(); i++)
-          message+=topics[i] + " ";
+      for (int i=0; i< input_topics.size(); i++)
+          message+=input_topics[i] + "->" + output_topics[i] + " ";
       ROS_INFO_STREAM("# Topics to retranslate: " << message);
 
       for (int k=0; k < r_count; k++) {
           vector<ros::Subscriber> rsubs;
           vector<ros::Publisher> rpubs;
-          for (int i=0; i < topics.size() && k!= r_id; i++) {
+          for (int i=0; i < output_topics.size() && k!= r_id; i++) {
 
               //create publishers
-              ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/_" + topics[i], 1);
+              ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/" + output_topics[i], 1);
               rpubs.push_back(pb);
           }
 
           pubs.push_back(rpubs);
-          rsubs.resize(topics.size());
+          rsubs.resize(input_topics.size());
           subs.push_back(rsubs);
 
           geometry_msgs::Point p; p.x=k*1000;
@@ -81,7 +91,7 @@ class NodeBase
 
   int loop()
   {
-      if (topics.size()==0) return 0;
+      if (input_topics.size()==0 || input_topics.size() != output_topics.size()) return 0;
 
       ros::Rate loop_rate(10);
       while (ros::ok())
@@ -94,9 +104,9 @@ class NodeBase
 
               //create subscribers
               if (rng < (max_range-delta) && !are_subs_enabled[k]) {
-                  for (int i=0; i < topics.size(); i++) {
+                  for (int i=0; i < input_topics.size(); i++) {
                       boost::function<void (T)> fun1( boost::bind(&NodeBase::route, this, _1, pubs[k][i]) );
-                      ros::Subscriber sb = node.subscribe<T>("/" + base_ns + to_string(k) + "/" + topics[i], 1, fun1);
+                      ros::Subscriber sb = node.subscribe<T>("/" + base_ns + to_string(k) + "/" + input_topics[i], 1, fun1);
                       subs[k][i] = sb;
                   }
                   are_subs_enabled[k] = true;

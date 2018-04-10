@@ -11,7 +11,7 @@
         <param name="tf_prefix" value="$(arg robot_name)" />
 
         <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
-        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg robot_name)_$(arg model) -param robot_description" />
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg robot_name)_$(arg model) -param robot_description"/>
 
         <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
             <param name="publish_frequency" type="double" value="50.0" />
@@ -31,9 +31,19 @@
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg robot_name)/map 100" />
 
-<!--
-        <node name="cg_mrslam" pkg="cg_mrslam" type="cg_mrslam" args="-idRobot $(arg r_id) -nRobots $(arg r_count) -scanTopic scan -mapFrame $(arg robot_name)/map -odomFrame $(arg robot_name)/odom -modality real2 -publishMap -publishGraph -o testmrslam.g2o" />
--->
+        <node name="cg_mrslam" pkg="cg_mrslam" type="cg_mrslam" args="-idRobot $(arg r_id) -nRobots $(arg r_count) -scanTopic scan -mapFrame $(arg robot_name)/map -odomFrame $(arg robot_name)/odom -baseFrame $(arg robot_name)/base_link -modality real2 -publishMap -publishGraph -o testmrslam.g2o" output="screen">
+            <remap from="mrslam_msgs_r0" to="old_mrslam_msgs_r0"/>
+            <remap from="mrslam_msgs_r1" to="old_mrslam_msgs_r1"/>
+            <remap from="mrslam_msgs_r2" to="old_mrslam_msgs_r2"/>
+        </node>
+
+        <node pkg="range_ctrl" type="range_ctrl_cg_mrslam" name="range_ctrl_cg_mrslam" output="screen">
+            <param name="input_topics" value="old_mrslam_msgs_r$(arg r_id)" />
+            <param name="output_topics" value="mrslam_msgs_r$(arg r_id)" />
+            <param name="r_count" value="$(arg r_count)" />
+            <param name="r_id" value="$(arg r_id)" />
+            <param name="range" value="1" />
+        </node>
 
     </group>
 </launch>
