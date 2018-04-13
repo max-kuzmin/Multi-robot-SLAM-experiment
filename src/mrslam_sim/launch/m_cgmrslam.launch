@@ -25,8 +25,8 @@
     
     <!--Robot 2-->
     <include file="$(find mrslam_sim)/launch/_robot_m_cgmrslam.launch">
-        <arg name="x" value="11" />
-        <arg name="y" value="-5" />
+        <arg name="x" value="4" />
+        <arg name="y" value="2" />
         <arg name="z" value="0" />
         <arg name="robot_name" value="robot1" />
         <arg name="model" value="burger" />

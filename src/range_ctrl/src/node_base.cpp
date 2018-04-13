@@ -70,7 +70,7 @@ class NodeBase
           for (int i=0; i < output_topics.size() && k!= r_id; i++) {
 
               //create publishers
-              ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/" + output_topics[i], 1);
+              ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/" + output_topics[i], 100);
               rpubs.push_back(pb);
           }
 
@@ -82,9 +82,9 @@ class NodeBase
           positions.push_back(p);
           are_subs_enabled.push_back(false);
 
-          //subscripe to ground truth
+          //subscribe to ground truth
           ground_truth_subs.push_back(node.subscribe<nav_msgs::Odometry>(
-                                          "/" + base_ns + to_string(k) + "/" + ground_truth_topic, 1,
+                                          "/" + base_ns + to_string(k) + "/" + ground_truth_topic, 100,
                                           boost::bind(&NodeBase<T>::watch_range, this, _1, k)));
       }
   }
@@ -106,7 +106,7 @@ class NodeBase
               if (rng < (max_range-delta) && !are_subs_enabled[k]) {
                   for (int i=0; i < input_topics.size(); i++) {
                       boost::function<void (T)> fun1( boost::bind(&NodeBase::route, this, _1, pubs[k][i]) );
-                      ros::Subscriber sb = node.subscribe<T>("/" + base_ns + to_string(k) + "/" + input_topics[i], 1, fun1);
+                      ros::Subscriber sb = node.subscribe<T>("/" + base_ns + to_string(k) + "/" + input_topics[i], 100, fun1);
                       subs[k][i] = sb;
                   }
                   are_subs_enabled[k] = true;

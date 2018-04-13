@@ -31,7 +31,7 @@
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg robot_name)/map 100" />
 
-        <node name="cg_mrslam" pkg="cg_mrslam" type="cg_mrslam" args="-idRobot $(arg r_id) -nRobots $(arg r_count) -scanTopic scan -mapFrame $(arg robot_name)/map -odomFrame $(arg robot_name)/odom -baseFrame $(arg robot_name)/base_link -modality real2 -publishMap -publishGraph -o testmrslam.g2o" output="screen">
+        <node name="cg_mrslam" pkg="cg_mrslam" type="cg_mrslam" cwd="node" args="-minInliersMR 5 -linearUpdate 0.5 -resolution 0.01 -idRobot $(arg r_id) -nRobots $(arg r_count) -scanTopic scan -mapFrame $(arg robot_name)/map -odomFrame $(arg robot_name)/odom -baseFrame $(arg robot_name)/base_link -modality real2 -publishMap -publishGraph -o graph.g2o" output="screen">
             <remap from="mrslam_msgs_r0" to="old_mrslam_msgs_r0"/>
             <remap from="mrslam_msgs_r1" to="old_mrslam_msgs_r1"/>
             <remap from="mrslam_msgs_r2" to="old_mrslam_msgs_r2"/>
@@ -42,7 +42,7 @@
             <param name="output_topics" value="mrslam_msgs_r$(arg r_id)" />
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
-            <param name="range" value="1" />
+            <param name="range" value="10" />
         </node>
 
     </group>
