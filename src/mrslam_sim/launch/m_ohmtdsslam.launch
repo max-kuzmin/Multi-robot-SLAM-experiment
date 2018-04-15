@@ -1,0 +1,46 @@
+<launch>
+    <arg name="gazebo_gui" default="false" />
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="worlds/willowgarage.world" />
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="$(arg gazebo_gui)" />
+        <arg name="headless" value="false" />
+        <arg name="debug" value="false" />
+    </include>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/m_ohmtdsslam.rviz" />
+
+    <!--Robot 0-->
+    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtdsslam.launch">
+        <arg name="x0" value="4" />
+        <arg name="y0" value="-5" />
+        <arg name="x1" value="4" />
+        <arg name="y1" value="-3" />
+        <arg name="x2" value="0" />
+        <arg name="y2" value="0" />
+        <arg name="model" value="burger" />
+        <arg name="r_id" value="0" />
+        <arg name="r_count" value="2" />
+    </include>
+    
+    <!--Robot 1-->
+    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtdsslam.launch">
+        <arg name="x0" value="4" />
+        <arg name="y0" value="-5" />
+        <arg name="x1" value="4" />
+        <arg name="y1" value="-3" />
+        <arg name="x2" value="0" />
+        <arg name="y2" value="0" />
+        <arg name="model" value="burger" />
+        <arg name="r_id" value="1" />
+        <arg name="r_count" value="2" />
+    </include>
+
+
+<!--<node name="turtle_teleop_key" pkg="turtlesim" type="turtle_teleop_key" output="screen">
+    <remap from="/turtle1/cmd_vel" to="/robot0/cmd_vel" />
+    </node>-->
+
+</launch>
