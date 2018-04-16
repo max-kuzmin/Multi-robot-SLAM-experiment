@@ -17,7 +17,7 @@
         <arg name="x0" value="4" />
         <arg name="y0" value="-5" />
         <arg name="x1" value="4" />
-        <arg name="y1" value="-3" />
+        <arg name="y1" value="2" />
         <arg name="x2" value="0" />
         <arg name="y2" value="0" />
         <arg name="model" value="burger" />
@@ -30,17 +30,12 @@
         <arg name="x0" value="4" />
         <arg name="y0" value="-5" />
         <arg name="x1" value="4" />
-        <arg name="y1" value="-3" />
+        <arg name="y1" value="2" />
         <arg name="x2" value="0" />
         <arg name="y2" value="0" />
         <arg name="model" value="burger" />
         <arg name="r_id" value="1" />
         <arg name="r_count" value="2" />
     </include>
-
-
-<!--<node name="turtle_teleop_key" pkg="turtlesim" type="turtle_teleop_key" output="screen">
-    <remap from="/turtle1/cmd_vel" to="/robot0/cmd_vel" />
-    </node>-->
 
 </launch>

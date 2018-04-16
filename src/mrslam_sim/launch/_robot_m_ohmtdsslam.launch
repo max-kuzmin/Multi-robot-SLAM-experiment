@@ -37,7 +37,6 @@
 
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 1" />
-        <!--<node pkg="tf" type="static_transform_publisher" name="fix" args="0 0 0 0 0 0 $(arg r_ns)$(arg r_id)/fix $(arg r_ns)$(arg r_id)/base_footprint 1" />-->
 
         <!--
         <node pkg="range_ctrl" type="range_ctrl_cg_mrslam" name="range_ctrl_cg_mrslam" output="screen">
@@ -49,16 +48,16 @@
         </node>
         -->
 
-        <node name="ohm_tsd_slam" pkg="ohm_tsd_slam" type="slam_node" output="screen" if="$(eval arg('r_id')==0)">
+        <node name="ohm_tsd_slam" pkg="ohm_tsd_slam" type="slam_node" output="screen">
             <param name="cur_robot_name" value="$(arg r_ns)$(arg r_id)" />
             <param name="robot_nbr" value="$(arg r_count)" />
             <param name="map_size" value="10.5" />
             <param name="x_offset" value="-$(arg this_x)" />
             <param name="y_offset" value="-$(arg this_y)" />
             <param name="cellsize" value="0.015" />
-            <param name="low_reflectivity_range" value="3.0" />
+            <param name="low_reflectivity_range" value="3.5" />
             <param name="occ_grid_time_interval" value="2.0" />
-            <param name="truncation_radius" value="5" />
+            <param name="truncation_radius" value="3.5" />
             <param name="object_inflation_factor" value="1" />
             <param name="use_object_inflation" value="true" />
             <param name="reg_trs_max" value="0.5" />
@@ -78,21 +77,21 @@
             <param name="$(arg r_ns)0_offset_x" value="$(arg x0)" />
             <param name="$(arg r_ns)0_offset_y" value="$(arg y0)" />
             <param name="$(arg r_ns)0_offset_yaw" value="0.0" />
-            <param name="$(arg r_ns)0_max_range" value="3.45" />
+            <param name="$(arg r_ns)0_max_range" value="4" />
             <param name="$(arg r_ns)0_min_range" value="0.01" />
 
             <param name="robot_name_1" value="$(arg r_ns)1" />
             <param name="$(arg r_ns)1_offset_x" value="$(arg x1)" />
             <param name="$(arg r_ns)1_offset_y" value="$(arg y1)" />
             <param name="$(arg r_ns)1_offset_yaw" value="0.0" />
-            <param name="$(arg r_ns)1_max_range" value="3.45" />
+            <param name="$(arg r_ns)1_max_range" value="4" />
             <param name="$(arg r_ns)1_min_range" value="0.01" />
 
             <param name="robot_name_2" value="$(arg r_ns)2" />
             <param name="$(arg r_ns)2_offset_x" value="$(arg x2)" />
             <param name="$(arg r_ns)2_offset_y" value="$(arg y2)" />
             <param name="$(arg r_ns)2_offset_yaw" value="0.0" />
-            <param name="$(arg r_ns)2_max_range" value="3.45" />
+            <param name="$(arg r_ns)2_max_range" value="4" />
             <param name="$(arg r_ns)2_min_range" value="0.01" />
         </node>
 
