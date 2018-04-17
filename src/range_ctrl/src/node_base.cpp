@@ -19,6 +19,7 @@ class NodeBase
 
   string base_ns = "robot";
   string ground_truth_topic = "ground_truth";
+  bool retrans_own_topics;
   int max_range;
   int r_count;
   int r_id;
@@ -42,6 +43,7 @@ class NodeBase
       node.param("range", max_range, 5);
       node.param("r_count", r_count, 2);
       node.param("r_id", r_id, 0);
+      node.param("retrans_own_topics", retrans_own_topics, false);
 
       //get list of in topics
       string tempTopics = "";
@@ -67,11 +69,13 @@ class NodeBase
       for (int k=0; k < r_count; k++) {
           vector<ros::Subscriber> rsubs;
           vector<ros::Publisher> rpubs;
-          for (int i=0; i < output_topics.size() && k!= r_id; i++) {
+          if (k!= r_id || retrans_own_topics) {
+              for (int i=0; i < output_topics.size(); i++) {
 
-              //create publishers
-              ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/" + output_topics[i], 100);
-              rpubs.push_back(pb);
+                  //create publishers
+                  ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/" + output_topics[i], 100);
+                  rpubs.push_back(pb);
+              }
           }
 
           pubs.push_back(rpubs);
@@ -97,7 +101,7 @@ class NodeBase
       while (ros::ok())
       {
           for (int k=0; k < r_count; k++) {
-              if (k == r_id) continue;
+              if (k == r_id && !retrans_own_topics) continue;
 
               double rng = sqrt(pow(positions[k].x-positions[r_id].x, 2)
                                 + pow(positions[k].y-positions[r_id].y, 2));

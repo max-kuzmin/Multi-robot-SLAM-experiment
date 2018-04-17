@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>msg_collector</name>
+  <version>0.0.0</version>
+  <description>The msg_collector package</description>
+  <maintainer email="max@todo.todo">max</maintainer>
+  <license>TODO</license>
+
+  <depend>roscpp</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+
+  </export>
+</package>

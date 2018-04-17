@@ -38,4 +38,19 @@
         <arg name="r_count" value="2" />
     </include>
 
+    <!--Robot 2-->
+    <!--
+    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtdsslam.launch">
+        <arg name="x0" value="4" />
+        <arg name="y0" value="-5" />
+        <arg name="x1" value="4" />
+        <arg name="y1" value="2" />
+        <arg name="x2" value="0" />
+        <arg name="y2" value="0" />
+        <arg name="model" value="burger" />
+        <arg name="r_id" value="2" />
+        <arg name="r_count" value="3" />
+    </include>
+    -->
+
 </launch>

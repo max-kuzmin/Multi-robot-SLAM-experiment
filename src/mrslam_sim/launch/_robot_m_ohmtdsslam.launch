@@ -17,7 +17,7 @@
     <group ns="$(arg r_ns)$(arg r_id)">
         <param name="tf_prefix" value="$(arg r_ns)$(arg r_id)" />
 
-        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.no_odom.xacro" />
 
         <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg this_x) -y $(arg this_y) -z $(arg z) -urdf -model $(arg r_ns)$(arg r_id)_$(arg model) -param robot_description"/>
         <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
@@ -38,15 +38,26 @@
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 1" />
 
-        <!--
-        <node pkg="range_ctrl" type="range_ctrl_cg_mrslam" name="range_ctrl_cg_mrslam" output="screen">
-            <param name="input_topics" value="old_mrslam_msgs_r$(arg r_id)" />
-            <param name="output_topics" value="mrslam_msgs_r$(arg r_id)" />
+
+        <node pkg="range_ctrl" type="range_ctrl_laser_scan" name="range_ctrl_laser_scan" output="screen">
+            <param name="input_topics" value="scan_collector_r$(arg r_id)" />
+            <param name="output_topics" value="scan_r$(arg r_id)" />
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
-            <param name="range" value="6" />
+            <param name="range" value="5" />
+            <param name="base_ns" value="$(arg r_ns)" />
+            <param name="retrans_own_topics" value="true" />
         </node>
-        -->
+
+        <node pkg="msg_collector" type="msg_collector_laser_scan" name="msg_collector_laser_scan" output="screen">
+            <param name="input_topics" value="scan" />
+            <param name="output_topics" value="scan_collector_r" />
+            <param name="min_msg_interval" value="0.1" />
+            <param name="r_count" value="$(arg r_count)" />
+            <param name="ns" value="$(arg r_ns)$(arg r_id)" />
+            <param name="loop_rate" value="50" />
+        </node>
+
 
         <node name="ohm_tsd_slam" pkg="ohm_tsd_slam" type="slam_node" output="screen">
             <param name="cur_robot_name" value="$(arg r_ns)$(arg r_id)" />
@@ -62,13 +73,14 @@
             <param name="use_object_inflation" value="true" />
             <param name="reg_trs_max" value="0.5" />
             <param name="reg_sin_rot_max" value="0.5" />
-            <param name="laser_topic" value="scan" />
+            <param name="laser_topic" value="scan_r$(arg r_id)" />
             <param name="tf_base_frame" value="map" />
             <param name="tf_child_frame" value="base_footprint" />
             <param name="pose_topic" value="pose" />
             <param name="registration_mode" value="0" />
             <param name="icp_iterations" value="50" />
             <param name="ransac_trials" value="20" />
+            <param name="publish_only_cur_robot_tf" value="true" />
             <!--<param name="tf_odom_frame" value="odom" />
             <param name="tf_footrpint_frame" value="base_footprint" />
             <param name="use_odom_rescue" value="false" />-->
