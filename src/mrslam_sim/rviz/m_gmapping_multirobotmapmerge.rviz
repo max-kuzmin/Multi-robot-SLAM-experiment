@@ -44,7 +44,7 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 130
-      Reference Frame: robot1/map
+      Reference Frame: robot0/map
       Value: false
     - Class: rviz/TF
       Enabled: false
@@ -85,7 +85,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.0199999996
       Style: Flat Squares
-      Topic: /robot1/scan
+      Topic: /robot0/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -96,7 +96,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: false
       Name: Map
-      Topic: /robot1/map
+      Topic: /robot0/map
       Unreliable: false
       Use Timestamp: false
       Value: false
@@ -111,8 +111,8 @@ Visualization Manager:
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
       Name: RobotModel
-      Robot Description: robot1/robot_description
-      TF Prefix: robot1
+      Robot Description: robot0/robot_description
+      TF Prefix: robot0
       Update Interval: 0
       Value: false
       Visual Enabled: true
@@ -136,7 +136,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot1/move_base/DWAPlannerROS/local_plan
+      Topic: /robot0/move_base/DWAPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -159,7 +159,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot1/move_base/DWAPlannerROS/global_plan
+      Topic: /robot0/move_base/DWAPlannerROS/global_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -167,7 +167,7 @@ Visualization Manager:
       Color: 25; 255; 0
       Enabled: true
       Name: Polygon
-      Topic: /robot1/move_base/global_costmap/footprint
+      Topic: /robot0/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
     - Alpha: 0.699999988
@@ -175,8 +175,8 @@ Visualization Manager:
       Color Scheme: map
       Draw Behind: false
       Enabled: true
-      Name: MapMerging1
-      Topic: /robot1/map_merged
+      Name: MapMerging
+      Topic: /robot0/map_merged
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -205,7 +205,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.0199999996
       Style: Flat Squares
-      Topic: /robot2/scan
+      Topic: /robot1/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -216,7 +216,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: false
       Name: Map2
-      Topic: /robot2/map
+      Topic: /robot1/map
       Unreliable: false
       Use Timestamp: false
       Value: false
@@ -231,8 +231,8 @@ Visualization Manager:
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
       Name: RobotModel2
-      Robot Description: robot2/robot_description
-      TF Prefix: robot2
+      Robot Description: robot1/robot_description
+      TF Prefix: robot1
       Update Interval: 0
       Value: false
       Visual Enabled: true
@@ -256,7 +256,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot2/move_base/DWAPlannerROS/local_plan
+      Topic: /robot1/move_base/DWAPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -279,7 +279,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot2/move_base/DWAPlannerROS/global_plan
+      Topic: /robot1/move_base/DWAPlannerROS/global_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -287,7 +287,7 @@ Visualization Manager:
       Color: 25; 255; 0
       Enabled: true
       Name: Polygon2
-      Topic: /robot2/move_base/global_costmap/footprint
+      Topic: /robot1/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
     - Alpha: 0.699999988
@@ -296,7 +296,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: false
       Name: MapMerging2
-      Topic: /robot2/map_merged
+      Topic: /robot1/map_merged
       Unreliable: false
       Use Timestamp: false
       Value: false
@@ -325,7 +325,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /robot3/scan
+      Topic: /robot2/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -336,7 +336,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: false
       Name: Map3
-      Topic: /robot3/map
+      Topic: /robot2/map
       Unreliable: false
       Use Timestamp: false
       Value: false
@@ -351,8 +351,8 @@ Visualization Manager:
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
       Name: RobotModel3
-      Robot Description: robot3/robot_description
-      TF Prefix: robot3
+      Robot Description: robot2/robot_description
+      TF Prefix: robot2
       Update Interval: 0
       Value: false
       Visual Enabled: true
@@ -376,7 +376,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot3/move_base/DWAPlannerROS/local_plan
+      Topic: /robot2/move_base/DWAPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -399,7 +399,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /robot3/move_base/DWAPlannerROS/global_plan
+      Topic: /robot2/move_base/DWAPlannerROS/global_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -407,7 +407,7 @@ Visualization Manager:
       Color: 25; 255; 0
       Enabled: true
       Name: Polygon3
-      Topic: /robot3/move_base/global_costmap/footprint
+      Topic: /robot2/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
     - Alpha: 0.699999988
@@ -416,7 +416,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: false
       Name: MapMerging3
-      Topic: /robot3/map_merged
+      Topic: /robot2/map_merged
       Unreliable: false
       Use Timestamp: false
       Value: false
@@ -435,9 +435,9 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetGoal
-      Topic: robot1/move_base_simple/goal
+      Topic: robot0/move_base_simple/goal
     - Class: rviz/SetGoal
-      Topic: robot2/move_base_simple/goal
+      Topic: robot1/move_base_simple/goal
   Value: true
   Views:
     Current:

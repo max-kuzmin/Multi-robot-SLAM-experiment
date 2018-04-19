@@ -1,25 +1,27 @@
 <launch>
     <arg name="model" default="burger" doc="model type [burger, waffle]" />
-    <arg name="robot_name" />
     <arg name="x" />
     <arg name="y" />
-    <arg name="z" />
+    <arg name="z" default="0"/>
+    <arg name="r_id" />
+    <arg name="r_count" />
+    <arg name="r_ns" default="robot"/> <!-- base namespace without robot number, must be the same for all -->
 
-    <group ns="$(arg robot_name)">
-        <param name="tf_prefix" value="$(arg robot_name)" />
+    <group ns="$(arg r_ns)$(arg r_id)">
+        <param name="tf_prefix" value="$(arg r_ns)$(arg r_id)" />
 
         <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
-        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg robot_name)_$(arg model) -param robot_description" />
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg r_ns)$(arg r_id)_$(arg model) -param robot_description" />
 
         <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
             <param name="publish_frequency" type="double" value="50.0" />
         </node>
 
         <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
-        	<rosparam file="$(find mrslam_sim)/param/gmapping.yaml" command="load" />
-            <param name="base_frame" value="$(arg robot_name)/base_footprint" />
-            <param name="odom_frame" value="$(arg robot_name)/odom" />
-            <param name="map_frame" value="$(arg robot_name)/map" />
+            <rosparam file="$(find mrslam_sim)/param/gmapping.yaml" command="load" />
+            <param name="base_frame" value="$(arg r_ns)$(arg r_id)/base_footprint" />
+            <param name="odom_frame" value="$(arg r_ns)$(arg r_id)/odom" />
+            <param name="map_frame" value="$(arg r_ns)$(arg r_id)/map" />
         </node>
 
         <node pkg="move_base" type="move_base" respawn="false" name="move_base">
@@ -34,12 +36,30 @@
         </node>
 
         <!--tf_prefix fix for rviz-->
-        <node pkg="tf" type="static_transform_publisher" name="world_tf" args="0 0 0 0 0 0 world $(arg robot_name)/$(arg robot_name)/map 100" />
-        <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg robot_name)/map 100" />
+        <node pkg="tf" type="static_transform_publisher" name="world_tf" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/$(arg r_ns)$(arg r_id)/map 100" />
+        <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 100" />
+        <node pkg="tf" type="static_transform_publisher" name="map_merged_tf" args="-30 -30 0 0 0 0 world $(arg r_ns)$(arg r_id)/map_merged 100" />
 
-        <node pkg="multirobot_map_merge" type="map_merge" name="map_merge" output="log">
-            <param name="known_init_poses" value="false" />
+
+        <node pkg="range_ctrl" type="range_ctrl_occupancy_grid" name="range_ctrl_occupancy_grid" output="screen">
+            <param name="input_topics" value="map" /> <!--subscribes only to topics for current robot-->
+            <param name="output_topics" value="map_inrange_r$(arg r_id)" /> <!--publish the same topics-->
+            <param name="r_count" value="$(arg r_count)" />
+            <param name="r_id" value="$(arg r_id)" />
+            <param name="base_ns" value="$(arg r_ns)" />
+            <param name="range" value="5" />
+            <param name="retrans_own_topics" value="true" />
+        </node>
+
+        <node pkg="multirobot_map_merge" type="map_merge" name="map_merge" output="screen">
+            <param name="known_init_poses" value="true" />
             <param name="merged_map_topic" value="map_merged" />
+            <param name="init_pose_x" value="$(arg x)" />
+            <param name="init_pose_y" value="$(arg y)" />
+            <param name="init_pose_z" value="0" />
+            <param name="init_pose_yaw" value="0" />
+            <param name="world_frame" value="$(arg r_ns)$(arg r_id)/map_merged" />
+            <param name="robot_map_topic" value="map_inrange_r$(arg r_id)" />
         </node>
     </group>
 </launch>

@@ -155,8 +155,12 @@ nav_msgs::OccupancyGrid::Ptr MergingPipeline::composeGrids()
   internal::GridCompositor compositor;
   result = compositor.compose(imgs_warped, rois);
   result->info.map_load_time = ros::Time::now();
-  // TODO is this correct?
-  result->info.resolution = grids_[0]->info.resolution;
+
+  for (auto grid: grids_)
+    if (grid) {
+        result->info.resolution = grid->info.resolution;
+        break;
+    }
 
   return result;
 }
