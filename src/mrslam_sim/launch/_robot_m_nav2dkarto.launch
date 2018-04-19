@@ -31,31 +31,30 @@
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 1" />
 
-<!--
-        <node pkg="range_ctrl" type="range_ctrl_laser_scan" name="range_ctrl_laser_scan" output="screen">
-            <param name="input_topics" value="scan_collector_r$(arg r_id)" />
-            <param name="output_topics" value="scan_r$(arg r_id)" />
+        <node pkg="range_ctrl" type="range_ctrl_nav2d_scan" name="range_ctrl_nav2d_scan" output="screen">
+            <param name="input_topics" value="scans_collector_r$(arg r_id)" /> <!--subscribes only to topics for current robot-->
+            <param name="output_topics" value="scans_inrange_r$(arg r_id)" /> <!--publish the same topics-->
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
-            <param name="range" value="5" />
             <param name="base_ns" value="$(arg r_ns)" />
-            <param name="retrans_own_topics" value="true" />
+            <param name="range" value="5" />
+            <param name="retrans_own_topics" value="false" />
         </node>
 
 
-        <node pkg="msg_collector" type="msg_collector_laser_scan" name="msg_collector_laser_scan" output="screen">
-            <param name="input_topics" value="scan" />
-            <param name="output_topics" value="scan_collector_r" />
+        <node pkg="msg_collector" type="msg_collector_nav2d_scan" name="msg_collector_nav2d_scan" output="screen">
+            <param name="input_topics" value="shared_scans" />
+            <param name="output_topics" value="scans_collector_r" /> <!--publishes separate topic for every robot-->
             <param name="min_msg_interval" value="0.1" />
             <param name="r_count" value="$(arg r_count)" />
-            <param name="ns" value="$(arg r_ns)$(arg r_id)" />
+            <param name="r_id" value="$(arg r_id)" />
+            <param name="base_ns" value="$(arg r_ns)" />
             <param name="loop_rate" value="50" />
+            <param name="retrans_own_topics" value="false" />
         </node>
-        -->
+
 
         <group>
-        <arg name="pub_to" value="$(eval 1 if (arg('r_id') == 0) else 0)"/>
-
         <param name="laser_frame" value="base_scan" />
         <param name="robot_frame" value="base_link" />
         <param name="odometry_frame" value="odom" />
@@ -66,8 +65,9 @@
         <param name="map_service" value="static_map" />
 
         <param name="robot_id" value="$(arg r_id)" />
-        <param name="scan_input_topic" value="/shared_scans_r$(arg pub_to)" />
-        <param name="scan_output_topic" value="/shared_scans_r$(arg r_id)" />
+        <param name="input_scan_topics" value="scans_inrange_r$(arg r_id)" /> <!--subscribes only to topics for current robot-->
+        <param name="output_scan_topic" value="shared_scans" />
+        <param name="base_ns" value="robot" />
 
         <node name="nav2d_karto" pkg="nav2d_karto" type="mapper" output="screen">
             <param name="grid_resolution" value="0.05" />
@@ -82,6 +82,7 @@
             <param name="MinimumTravelDistance" value="0.5" />
             <param name="MinimumTravelHeading" value="0.52" />
             <param name="LoopSearchMaximumDistance" value="10.0" />
+            <param name="init_from_tf" value="true" />
         </node>
         </group>
 

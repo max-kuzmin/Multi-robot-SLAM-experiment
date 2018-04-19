@@ -4,6 +4,7 @@
 #include <boost/algorithm/string.hpp>
 #include <queue>
 #include <boost/thread/mutex.hpp>
+#include <type_traits>
 
 using namespace std;
 
@@ -16,8 +17,9 @@ class NodeBase
   vector< vector<ros::Publisher> > pubs;
   vector<ros::Subscriber> subs;
   double min_msg_interval; //in seconds
-  int r_count, l_rate;
-  string ns;
+  bool retrans_own_topics;
+  int r_count, r_id, l_rate;
+  string base_ns;
   vector<string> input_topics, output_topics;
 
   vector< vector<bool> > has_subscribers;
@@ -37,6 +39,7 @@ class NodeBase
       if (ros::Time::now()-lastTimes[t] > ros::Duration(min_msg_interval)) {
           //add msg to every msgs queue of topic
           for (int r=0; r<r_count; r++) {
+              if (!retrans_own_topics && r==r_id) continue;
               boost::mutex::scoped_lock lock(*queue_mx[t][r]);
               lastTimes[t] = ros::Time::now();
               msgs[t][r].push(msg);
@@ -51,9 +54,11 @@ class NodeBase
   NodeBase() {
       //get parameters
       node.param("min_msg_interval", min_msg_interval, 0.1);
+      node.param("retrans_own_topics", retrans_own_topics, false);
+      node.param("base_ns", base_ns, base_ns);
       node.param("r_count", r_count, 2);
+      node.param("r_id", r_id, 0);
       node.param("loop_rate", l_rate, 50);
-      node.param<string>("ns", ns, "robot0");
       printMsgCount = 10/min_msg_interval;
 
       //get list of in topics
@@ -87,8 +92,12 @@ class NodeBase
           //create publishers for every robot for topic i
           vector<ros::Publisher> topicPubs;
           for (int r=0; r< r_count; r++) {
-            ros::Publisher pb = node.advertise<T>("/" +ns + "/" + output_topics[t]+to_string(r), 100);
-            topicPubs.push_back(pb);
+            if (!retrans_own_topics && r==r_id)
+                topicPubs.push_back(ros::Publisher());
+            else {
+                ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(r_id) + "/" + output_topics[t]+to_string(r), 100);
+                topicPubs.push_back(pb);
+            }
 
             queue_mx[t].push_back(new boost::mutex());
           }
@@ -101,10 +110,23 @@ class NodeBase
 
           //create subscriber for topic i
           boost::function<void (T)> fun1( boost::bind(&NodeBase::collect, this, _1, t) );
-          ros::Subscriber sb = node.subscribe<T>("/" +ns + "/" + input_topics[t], 100, fun1);
+          ros::Subscriber sb = node.subscribe<T>("/" + base_ns + to_string(r_id) + "/" + input_topics[t], 100, fun1);
           subs.push_back(sb);
       }
   }
+
+
+  template <typename U>
+  constexpr auto set_stamp(U& t) -> decltype(t.header.stamp) {
+    t.header.stamp=ros::Time::now();
+  }
+  template <typename U>
+  constexpr auto set_stamp(U& t) -> decltype(t.scan.header.stamp) {
+    t.scan.header.stamp=ros::Time::now();
+  }
+
+
+
 
   int loop()
   {
@@ -119,7 +141,7 @@ class NodeBase
                   if (has_subscribers[t][r] && msgs[t][r].size() > 0) {
                       //lock mutex of current msgs queue
                       boost::mutex::scoped_lock lock(*queue_mx[t][r]);
-                      msgs[t][r].front().header.stamp=ros::Time::now(); //set current time
+                      set_stamp<T>(msgs[t][r].front()); //set current time
                       pubs[t][r].publish(msgs[t][r].front());
                       msgs[t][r].pop();
                   }

@@ -69,13 +69,10 @@ class NodeBase
       for (int k=0; k < r_count; k++) {
           vector<ros::Subscriber> rsubs;
           vector<ros::Publisher> rpubs;
-          if (k!= r_id || retrans_own_topics) {
-              for (int i=0; i < output_topics.size(); i++) {
-
-                  //create publishers
-                  ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/" + output_topics[i], 100);
-                  rpubs.push_back(pb);
-              }
+          for (int i=0; i < output_topics.size() && k!= r_id; i++) {
+              //create publishers
+              ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(k) + "/" + output_topics[i], 100);
+              rpubs.push_back(pb);
           }
 
           pubs.push_back(rpubs);
@@ -91,6 +88,17 @@ class NodeBase
                                           "/" + base_ns + to_string(k) + "/" + ground_truth_topic, 100,
                                           boost::bind(&NodeBase<T>::watch_range, this, _1, k)));
       }
+
+      //retranslate own topics
+      for (int i=0; i < output_topics.size() && retrans_own_topics; i++) {
+          //publishers
+          ros::Publisher pb = node.advertise<T>("/" + base_ns + to_string(r_id) + "/" + output_topics[i], 100);
+          pubs[r_id].push_back(pb);
+          //subscribers
+          boost::function<void (T)> fun1( boost::bind(&NodeBase::route, this, _1, pubs[r_id][i]) );
+          ros::Subscriber sb = node.subscribe<T>("/" + base_ns + to_string(r_id) + "/" + input_topics[i], 100, fun1);
+          subs[r_id][i] = sb;
+      }
   }
 
   int loop()
@@ -101,7 +109,7 @@ class NodeBase
       while (ros::ok())
       {
           for (int k=0; k < r_count; k++) {
-              if (k == r_id && !retrans_own_topics) continue;
+              if (k == r_id) continue;
 
               double rng = sqrt(pow(positions[k].x-positions[r_id].x, 2)
                                 + pow(positions[k].y-positions[r_id].y, 2));

@@ -10,6 +10,7 @@
   <depend>nav_msgs</depend>
   <depend>cg_mrslam</depend>
   <depend>sensor_msgs</depend>
+  <depend>nav2d_msgs</depend>
 
   <buildtool_depend>catkin</buildtool_depend>
 

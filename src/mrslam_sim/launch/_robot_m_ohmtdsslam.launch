@@ -56,6 +56,7 @@
             <param name="r_count" value="$(arg r_count)" />
             <param name="ns" value="$(arg r_ns)$(arg r_id)" />
             <param name="loop_rate" value="50" />
+            <param name="retrans_own_topics" value="true" />
         </node>
 
 
