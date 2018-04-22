@@ -1,0 +1,62 @@
+<launch>
+    <arg name="model" default="burger" doc="model type [burger, waffle]" />
+    <arg name="x" />
+    <arg name="y" />
+    <arg name="z" default="0"/>
+    <arg name="r_id"/>
+    <arg name="r_ns" default="robot"/> <!-- base namespace without robot number, must be the same for all -->
+    <arg name="r_count" />
+
+    <group ns="$(arg r_ns)$(arg r_id)">
+        <param name="tf_prefix" value="$(arg r_ns)$(arg r_id)" />
+
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg r_ns)$(arg r_id)_$(arg model) -param robot_description"/>
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+            <param name="publish_frequency" type="double" value="50.0" />
+        </node>
+
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base">
+            <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+            <rosparam file="$(find mrslam_sim)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find mrslam_sim)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find mrslam_sim)/param/local_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/global_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/move_base_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/dwa_local_planner_params.yaml" command="load" />
+            <!--<remap from="map" to="map_merged"/>-->
+        </node>
+
+        <!--tf_prefix fix for rviz-->
+        <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 1" />
+        
+        <group ns="deciders_optimizers">
+            <param name="NRD" value="CICPCriteriaNRD_MR" />
+            <param name="ERD" value="CLoopCloserERD_MR" />
+            <param name="GSO" value="CLevMarqGSO" />
+        </group>
+        <group ns="files">
+            <param name="config" value="$(find mrpt_graphslam_2d)/config/ros_odometry_2DRangeScans_LC_MR_simul.ini" />
+            <param name="grount_truth" value="" />
+        </group>
+        <group ns="misc">
+            <param name="disable_MRPT_visuals" value="false" />
+            <param name="verbosity" value="0" />
+            <param name="do_publish_gridmap_topic" value="true" />
+        </group>
+        <group ns="frame_IDs">
+            <param name="anchor_frame" value="$(arg r_ns)$(arg r_id)/map" />
+            <param name="base_link_frame" value="$(arg r_ns)$(arg r_id)/base_link" />
+            <param name="odometry_frame" value="$(arg r_ns)$(arg r_id)/odom" />
+
+        </group>
+        <node pkg="mrpt_graphslam_2d" type="mrpt_graphslam_2d_mr_node" name="mrpt_graphslam_2d_mr" output="screen">
+            <remap from="input/odom" to="odom"/>
+            <remap from="input/laser_scan" to="scan"/>
+            <remap from="feedback/gridmap" to="map"/>
+        </node>
+             
+    </group>
+    
+</launch>

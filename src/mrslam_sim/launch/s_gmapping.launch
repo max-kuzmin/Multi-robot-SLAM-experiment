@@ -38,5 +38,5 @@
         <remap from="map" to="/map" />
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/one_gmapping.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/s_gmapping.rviz" />
 </launch>

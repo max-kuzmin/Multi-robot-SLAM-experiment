@@ -1,0 +1,15 @@
+<launch>
+    <node name="master_discovery" pkg="master_discovery_fkie" type="master_discovery"  output="screen"/>
+    <node name="master_sync" pkg="master_sync_fkie" type="master_sync">
+        <!--
+        <rosparam param="sync_nodes">['*gmapping', '*move_base']</rosparam>
+        <rosparam param="ignore_topics">['*/scan','*/map_metadata', '*/entropy', '/tf', '/tf_static', '**/move_base/*', '*/odom', '*/cmd_vel', '*/map_merging/*']</rosparam>
+        -->
+    </node>
+    
+    <group ns="robot0">
+        <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard"  output="log">
+            <remap from="/cmd_vel" to="/robot0/cmd_vel"/>
+        </node>
+    </group>
+</launch>
