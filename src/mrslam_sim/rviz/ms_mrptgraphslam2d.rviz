@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /TF1/Frames1
-        - /RobotModel01/Status1
       Splitter Ratio: 0.647222221
     Tree Height: 775
   - Class: rviz/Selection
@@ -25,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan1
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -97,7 +96,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map0
-      Topic: /robot0/map
+      Topic: /robot0/feedback/gridmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -171,22 +170,44 @@ Visualization Manager:
       Topic: /robot0/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
-    - Class: rviz/Marker
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.100000001
+      Class: rviz/Pose
+      Color: 255; 25; 0
       Enabled: true
-      Marker Topic: /robot0/nav2d_karto/edges
-      Name: Edges0
-      Namespaces:
-        "": true
-      Queue Size: 100
+      Head Length: 0.300000012
+      Head Radius: 0.100000001
+      Name: Pose0
+      Shaft Length: 1
+      Shaft Radius: 0.0500000007
+      Shape: Arrow
+      Topic: /robot0/feedback/robot_position
+      Unreliable: false
       Value: true
-    - Class: rviz/Marker
-      Enabled: false
-      Marker Topic: /robot0/nav2d_karto/vertices
-      Name: Vertices0
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.300000012
+      Head Length: 0.200000003
+      Length: 0.300000012
+      Line Style: Lines
+      Line Width: 0.0299999993
+      Name: Path0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.0299999993
+      Shaft Diameter: 0.100000001
+      Shaft Length: 0.100000001
+      Topic: /robot0/feedback/robot_trajectory
+      Unreliable: false
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -223,7 +244,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map1
-      Topic: /robot1/map
+      Topic: /robot1/feedback/gridmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -297,22 +318,44 @@ Visualization Manager:
       Topic: /robot1/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
-    - Class: rviz/Marker
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.100000001
+      Class: rviz/Pose
+      Color: 255; 25; 0
       Enabled: true
-      Marker Topic: /robot1/nav2d_karto/edges
-      Name: Edges1
-      Namespaces:
-        "": true
-      Queue Size: 100
+      Head Length: 0.300000012
+      Head Radius: 0.100000001
+      Name: Pose1
+      Shaft Length: 1
+      Shaft Radius: 0.0500000007
+      Shape: Arrow
+      Topic: /robot1/feedback/robot_position
+      Unreliable: false
       Value: true
-    - Class: rviz/Marker
-      Enabled: false
-      Marker Topic: /robot1/nav2d_karto/vertices
-      Name: Vertices1
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.300000012
+      Head Length: 0.200000003
+      Length: 0.300000012
+      Line Style: Lines
+      Line Width: 0.0299999993
+      Name: Path1
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.0299999993
+      Shaft Diameter: 0.100000001
+      Shaft Length: 0.100000001
+      Topic: /robot1/feedback/robot_trajectory
+      Unreliable: false
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -423,22 +466,6 @@ Visualization Manager:
       Topic: /robot2/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /robot2/nav2d_karto/edges
-      Name: Edges2
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: true
-    - Class: rviz/Marker
-      Enabled: false
-      Marker Topic: /robot2/nav2d_karto/vertices
-      Name: Vertices2
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48

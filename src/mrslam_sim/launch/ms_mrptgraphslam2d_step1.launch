@@ -5,7 +5,7 @@
     <arg name="r_id" />
     <arg name="r_count"/>
 
-    <group if="$(eval arg('r_id') == 0)">
+
         <arg name="gazebo_gui" default="false" />
     
         <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -16,7 +16,8 @@
             <arg name="headless" value="false" />
             <arg name="debug" value="false" />
         </include>
-    
+        
+    <group if="$(eval arg('r_id') != 10)">
         <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/ms_mrptgraphslam2d.rviz" />
     </group>
     

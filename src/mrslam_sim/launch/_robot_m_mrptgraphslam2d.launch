@@ -10,7 +10,7 @@
     <group ns="$(arg r_ns)$(arg r_id)">
         <param name="tf_prefix" value="$(arg r_ns)$(arg r_id)" />
 
-        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.no_odom.xacro" />
 
         <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg r_ns)$(arg r_id)_$(arg model) -param robot_description"/>
         <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
@@ -25,7 +25,7 @@
             <rosparam file="$(find mrslam_sim)/param/global_costmap_params.yaml" command="load" />
             <rosparam file="$(find mrslam_sim)/param/move_base_params.yaml" command="load" />
             <rosparam file="$(find mrslam_sim)/param/dwa_local_planner_params.yaml" command="load" />
-            <!--<remap from="map" to="map_merged"/>-->
+            <remap from="map" to="feedback/gridmap"/>
         </node>
 
         <!--tf_prefix fix for rviz-->
@@ -54,7 +54,20 @@
         <node pkg="mrpt_graphslam_2d" type="mrpt_graphslam_2d_mr_node" name="mrpt_graphslam_2d_mr" output="screen">
             <remap from="input/odom" to="odom"/>
             <remap from="input/laser_scan" to="scan"/>
-            <remap from="feedback/gridmap" to="map"/>
+            <remap from="/master_discovery/list_masters" to="/$(arg r_ns)$(arg r_id)/master_discovery/list_masters"/>
+            <remap from="/master_sync/get_sync_info" to="/$(arg r_ns)$(arg r_id)/master_sync/get_sync_info"/>
+            
+            <!--<remap from="/$(arg r_ns)$(arg r_id)/feedback/graphslam_stats" to="/feedback/graphslam_stats"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/feedback/odom_trajectory" to="/feedback/odom_trajectory"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/feedback/robot_position" to="/feedback/robot_position"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/feedback/robot_tr_poses" to="/feedback/robot_tr_poses"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/feedback/robot_trajectory" to="/feedback/robot_trajectory"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/mr_info/get_cm_graph" to="/mr_info/get_cm_graph"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/mr_info/last_nodeID_laser_scan" to="/mr_info/last_nodeID_laser_scan"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/mr_info/last_regd_nodes" to="/mr_info/last_regd_nodes"/>
+            <remap from="/$(arg r_ns)$(arg r_id)/mr_info/neighbors" to="/mr_info/neighbors"/>-->
+            
+
         </node>
              
     </group>

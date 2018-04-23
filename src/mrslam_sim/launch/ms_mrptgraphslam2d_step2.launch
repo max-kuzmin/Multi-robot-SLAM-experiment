@@ -2,15 +2,15 @@
     <arg name="r_id" />
     <arg name="r_ns" default="robot"/>
     
-    <node name="master_discovery" pkg="master_discovery_fkie" type="master_discovery"  output="screen"/>
-    <node name="master_sync" pkg="master_sync_fkie" type="master_sync">
-        <!--
-        <rosparam param="sync_nodes">['*gmapping', '*move_base']</rosparam>
-        <rosparam param="ignore_topics">['*/scan','*/map_metadata', '*/entropy', '/tf', '/tf_static', '**/move_base/*', '*/odom', '*/cmd_vel', '*/map_merging/*']</rosparam>
-        -->
-    </node>
-    
-    <group ns="$(arg r_ns)$(arg r_id)">
+    <group ns="$(arg r_ns)$(arg r_id)"> 
+        <node name="master_discovery" pkg="master_discovery_fkie" type="master_discovery"  output="screen">
+            <param name="name" value="$(arg r_ns)$(arg r_id)" />
+        </node>
+        <node name="master_sync" pkg="master_sync_fkie" type="master_sync">
+            <rosparam param="sync_topics">['*mr_info*', '*feedback*']</rosparam>
+            <rosparam param="sync_nodes">['*mrpt_graphslam_2d_mr*']</rosparam>
+            <rosparam param="ignore_topics">['*/scan', '*/odom', '/tf', '/tf_static']</rosparam>
+        </node>
         <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard"  output="log">
             <remap from="/cmd_vel" to="/$(arg r_ns)$(arg r_id)/cmd_vel"/>
         </node>
