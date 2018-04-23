@@ -37,17 +37,17 @@
             <param name="GSO" value="CLevMarqGSO" />
         </group>
         <group ns="files">
-            <param name="config" value="$(find mrpt_graphslam_2d)/config/ros_odometry_2DRangeScans_LC_MR_simul.ini" />
+            <param name="config" value="$(find mrslam_sim)/param/ros_odometry_2DRangeScans_LC_MR_simul.ini" />
             <param name="grount_truth" value="" />
         </group>
         <group ns="misc">
-            <param name="disable_MRPT_visuals" value="false" />
-            <param name="verbosity" value="0" />
+            <param name="disable_MRPT_visuals" value="true" />
+            <param name="verbosity" value="1" />
             <param name="do_publish_gridmap_topic" value="true" />
         </group>
         <group ns="frame_IDs">
             <param name="anchor_frame" value="$(arg r_ns)$(arg r_id)/map" />
-            <param name="base_link_frame" value="$(arg r_ns)$(arg r_id)/base_link" />
+            <param name="base_link_frame" value="$(arg r_ns)$(arg r_id)/base_footprint" />
             <param name="odometry_frame" value="$(arg r_ns)$(arg r_id)/odom" />
 
         </group>

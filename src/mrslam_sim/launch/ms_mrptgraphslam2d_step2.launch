@@ -1,4 +1,7 @@
 <launch>
+    <arg name="r_id" />
+    <arg name="r_ns" default="robot"/>
+    
     <node name="master_discovery" pkg="master_discovery_fkie" type="master_discovery"  output="screen"/>
     <node name="master_sync" pkg="master_sync_fkie" type="master_sync">
         <!--
@@ -7,9 +10,9 @@
         -->
     </node>
     
-    <group ns="robot0">
+    <group ns="$(arg r_ns)$(arg r_id)">
         <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard"  output="log">
-            <remap from="/cmd_vel" to="/robot0/cmd_vel"/>
+            <remap from="/cmd_vel" to="/$(arg r_ns)$(arg r_id)/cmd_vel"/>
         </node>
     </group>
 </launch>
