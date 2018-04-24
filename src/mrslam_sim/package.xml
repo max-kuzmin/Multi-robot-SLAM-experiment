@@ -12,5 +12,6 @@
   <depend>map_merging</depend>
   <depend>turtlebot3_description</depend>
   <depend>multirobot_map_merge</depend>
+  <depend>hector_slam</depend>
   </export>
 </package>
