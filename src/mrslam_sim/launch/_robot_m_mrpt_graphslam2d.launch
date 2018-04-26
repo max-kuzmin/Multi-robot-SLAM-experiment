@@ -37,7 +37,7 @@
             <param name="GSO" value="CLevMarqGSO" />
         </group>
         <group ns="files">
-            <param name="config" value="$(find mrslam_sim)/param/ros_odometry_2DRangeScans_LC_MR_simul.ini" />
+            <param name="config" value="$(find mrslam_sim)/param/mrpt_graphslam2d.ini" />
             <param name="grount_truth" value="" />
         </group>
         <group ns="misc">

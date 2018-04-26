@@ -18,10 +18,10 @@
         </include>
         
     <group if="$(eval arg('r_id') != 10)">
-        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/ms_mrptgraphslam2d.rviz" />
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/ms_mrpt_graphslam2d.rviz" />
     </group>
     
-    <include file="$(find mrslam_sim)/launch/_robot_m_mrptgraphslam2d.launch">
+    <include file="$(find mrslam_sim)/launch/_robot_m_mrpt_graphslam2d.launch">
         <arg name="x" value="$(arg x)" />
         <arg name="y" value="$(arg y)" />
         <arg name="model" value="burger" />

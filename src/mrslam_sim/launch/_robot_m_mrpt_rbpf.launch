@@ -1,0 +1,59 @@
+<launch>
+    <arg name="model" default="burger" doc="model type [burger, waffle]" />
+    <arg name="x" />
+    <arg name="y" />
+    <arg name="z" default="0"/>
+    <arg name="r_id" />
+    <arg name="r_count" />
+    <arg name="r_ns" default="robot"/> <!-- base namespace without robot number, must be the same for all -->
+
+    <group ns="$(arg r_ns)$(arg r_id)">
+        <param name="tf_prefix" value="$(arg r_ns)$(arg r_id)" />
+
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x) -y $(arg y) -z $(arg z) -urdf -model $(arg r_ns)$(arg r_id)_$(arg model) -param robot_description" />
+
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+            <param name="publish_frequency" type="double" value="50.0" />
+        </node>
+        
+        <group>
+            <param name="ini_filename" value="$(find mrslam_sim)/param/mrpt_rbpf.ini"/>
+            <param name="odom_frame_id" value="$(arg r_ns)$(arg r_id)/odom"/>
+            <param name="global_frame_id" value="$(arg r_ns)$(arg r_id)/map"/>
+            <param name="base_frame_id" value="$(arg r_ns)$(arg r_id)/base_footprint"/>
+            <param name="sensor_source" value="scan"/>
+            <env name="ROSCONSOLE_CONFIG_FILE" value="$(find mrslam_sim)/param/rosconsole.config"/>
+              
+            <node pkg="mrpt_rbpf_slam" type="mrpt_rbpf_slam" name="mrpt_rbpf_slam" output="screen"></node>
+        </group>
+
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base">
+            <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+            <rosparam file="$(find mrslam_sim)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find mrslam_sim)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find mrslam_sim)/param/local_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/global_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/move_base_params.yaml" command="load" />
+            <rosparam file="$(find mrslam_sim)/param/dwa_local_planner_params.yaml" command="load" />
+            <!--<remap from="map" to="map_merged"/>-->
+        </node>
+
+        <!--tf_prefix fix for rviz-->
+        <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 100" />
+
+
+        <node pkg="range_ctrl" type="range_ctrl_occupancy_grid" name="range_ctrl_occupancy_grid" output="screen">
+            <param name="input_topics" value="map" /> <!--subscribes only to topics for current robot-->
+            <param name="output_topics" value="map_inrange_r$(arg r_id)" /> <!--publish the same topics-->
+            <param name="r_count" value="$(arg r_count)" />
+            <param name="r_id" value="$(arg r_id)" />
+            <param name="base_ns" value="$(arg r_ns)" />
+            <param name="range" value="5" />
+            <param name="retrans_own_topics" value="true" />
+        </node>
+
+
+        
+    </group>
+</launch>
