@@ -31,7 +31,7 @@
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 1" />
 
-        <node pkg="range_ctrl" type="range_ctrl_nav2d_scan" name="range_ctrl_nav2d_scan" output="screen">
+        <node pkg="range_ctrl" type="range_ctrl_nav2d_scan" name="range_ctrl" output="screen">
             <param name="input_topics" value="scans_collector_r$(arg r_id)" /> <!--subscribes only to topics for current robot-->
             <param name="output_topics" value="scans_inrange_r$(arg r_id)" /> <!--publish the same topics-->
             <param name="r_count" value="$(arg r_count)" />
@@ -42,7 +42,7 @@
         </node>
 
 
-        <node pkg="msg_collector" type="msg_collector_nav2d_scan" name="msg_collector_nav2d_scan" output="screen">
+        <node pkg="msg_collector" type="msg_collector_nav2d_scan" name="msg_collector" output="screen">
             <param name="input_topics" value="shared_scans" />
             <param name="output_topics" value="scans_collector_r" /> <!--publishes separate topic for every robot-->
             <param name="min_msg_interval" value="0.1" />

@@ -40,7 +40,7 @@
             <remap from="mrslam_msgs_r2" to="old_mrslam_msgs_r2"/>
         </node>
 
-        <node pkg="range_ctrl" type="range_ctrl_cg_mrslam" name="range_ctrl_cg_mrslam" output="screen">
+        <node pkg="range_ctrl" type="range_ctrl_cg_mrslam" name="range_ctrl" output="screen">
             <param name="input_topics" value="old_mrslam_msgs_r$(arg r_id)" />
             <param name="output_topics" value="mrslam_msgs_r$(arg r_id)" />
             <param name="r_count" value="$(arg r_count)" />

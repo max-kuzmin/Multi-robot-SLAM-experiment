@@ -10,6 +10,7 @@
   <depend>nav_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>nav2d_msgs</depend>
+  <depend>mrpt_rbpf_slam</depend>
 
   <buildtool_depend>catkin</buildtool_depend>
 

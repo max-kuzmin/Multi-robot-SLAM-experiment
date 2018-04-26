@@ -41,7 +41,7 @@
         <node pkg="tf" type="static_transform_publisher" name="map_merged_tf" args="-30 -30 0 0 0 0 world $(arg r_ns)$(arg r_id)/map_merged 100" />
 
 
-        <node pkg="range_ctrl" type="range_ctrl_occupancy_grid" name="range_ctrl_occupancy_grid" output="screen">
+        <node pkg="range_ctrl" type="range_ctrl_occupancy_grid" name="range_ctrl" output="screen">
             <param name="input_topics" value="map" /> <!--subscribes only to topics for current robot-->
             <param name="output_topics" value="map_inrange_r$(arg r_id)" /> <!--publish the same topics-->
             <param name="r_count" value="$(arg r_count)" />

@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /TF1/Frames1
-        - /PoseArray1/Status1
       Splitter Ratio: 0.647222221
     Tree Height: 775
   - Class: rviz/Selection
@@ -187,16 +186,6 @@ Visualization Manager:
       Topic: /robot0/particlecloud
       Unreliable: false
       Value: false
-    - Alpha: 0.699999988
-      Class: rviz/Map
-      Color Scheme: map
-      Draw Behind: false
-      Enabled: true
-      Name: MapMerged
-      Topic: /robot0/map_merged
-      Unreliable: false
-      Use Timestamp: false
-      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -231,12 +220,12 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map2
       Topic: /robot1/map
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
@@ -322,16 +311,6 @@ Visualization Manager:
       Shape: Arrow (Flat)
       Topic: /robot1/particlecloud
       Unreliable: false
-      Value: false
-    - Alpha: 0.699999988
-      Class: rviz/Map
-      Color Scheme: map
-      Draw Behind: false
-      Enabled: false
-      Name: MapMerged2
-      Topic: /robot1/map_merged
-      Unreliable: false
-      Use Timestamp: false
       Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -443,16 +422,6 @@ Visualization Manager:
       Topic: /robot2/move_base/global_costmap/footprint
       Unreliable: false
       Value: true
-    - Alpha: 0.699999988
-      Class: rviz/Map
-      Color Scheme: map
-      Draw Behind: false
-      Enabled: false
-      Name: MapMerged3
-      Topic: /robot2/map_merged
-      Unreliable: false
-      Use Timestamp: false
-      Value: false
     - Alpha: 1
       Arrow Length: 0.300000012
       Axes Length: 0.300000012

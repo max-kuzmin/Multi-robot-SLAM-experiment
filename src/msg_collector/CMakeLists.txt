@@ -5,7 +5,7 @@ set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_BUILD_TYPE Release)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp nav_msgs sensor_msgs nav2d_msgs
+  roscpp nav_msgs sensor_msgs nav2d_msgs mrpt_rbpf_slam
 )
 
 catkin_package(
@@ -25,7 +25,8 @@ add_executable(${PROJECT_NAME}_odom src/node_odom.cpp)
 add_executable(${PROJECT_NAME}_occupancy_grid src/node_occupancy_grid.cpp)
 add_executable(${PROJECT_NAME}_laser_scan src/node_laser_scan.cpp)
 add_executable(${PROJECT_NAME}_nav2d_scan src/node_nav2d_scan.cpp)
-
+add_executable(${PROJECT_NAME}_observation src/node_observation.cpp)
+ 
 target_link_libraries(${PROJECT_NAME}_odom
    ${catkin_LIBRARIES}
  )
@@ -37,5 +38,9 @@ target_link_libraries(${PROJECT_NAME}_laser_scan
  )
 
 target_link_libraries(${PROJECT_NAME}_nav2d_scan
+   ${catkin_LIBRARIES}
+ )
+
+target_link_libraries(${PROJECT_NAME}_observation
    ${catkin_LIBRARIES}
  )

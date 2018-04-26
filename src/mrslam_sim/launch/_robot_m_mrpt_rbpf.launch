@@ -23,9 +23,15 @@
             <param name="global_frame_id" value="$(arg r_ns)$(arg r_id)/map"/>
             <param name="base_frame_id" value="$(arg r_ns)$(arg r_id)/base_footprint"/>
             <param name="sensor_source" value="scan"/>
+            <param name="run_multi_robot" value="true"/>
+            <param name="robots_source" value="observation_inrange_r$(arg r_id)"/>
+            <param name="base_ns" value="robot"/>
+            <param name="robots_count" value="2"/>
             <env name="ROSCONSOLE_CONFIG_FILE" value="$(find mrslam_sim)/param/rosconsole.config"/>
               
-            <node pkg="mrpt_rbpf_slam" type="mrpt_rbpf_slam" name="mrpt_rbpf_slam" output="screen"></node>
+            <node pkg="mrpt_rbpf_slam" type="mrpt_rbpf_slam" name="mrpt_rbpf_slam" output="screen">
+                <remap from="/$(arg r_ns)$(arg r_id)/observation_inrange_r$(arg r_id)" to="/$(arg r_ns)$(arg r_id)/observation_own"/>
+            </node>
         </group>
 
         <node pkg="move_base" type="move_base" respawn="false" name="move_base">
@@ -42,18 +48,26 @@
         <!--tf_prefix fix for rviz-->
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 100" />
 
-
-        <node pkg="range_ctrl" type="range_ctrl_occupancy_grid" name="range_ctrl_occupancy_grid" output="screen">
-            <param name="input_topics" value="map" /> <!--subscribes only to topics for current robot-->
-            <param name="output_topics" value="map_inrange_r$(arg r_id)" /> <!--publish the same topics-->
+        <node pkg="range_ctrl" type="range_ctrl_observation" name="range_ctrl" output="screen">
+            <param name="input_topics" value="observation_collector_r$(arg r_id)" />
+            <param name="output_topics" value="observation_inrange_r$(arg r_id)" />
+            <param name="r_count" value="$(arg r_count)" />
+            <param name="r_id" value="$(arg r_id)" />
+            <param name="range" value="5" />
+            <param name="base_ns" value="$(arg r_ns)" />
+            <param name="retrans_own_topics" value="false" />
+        </node>
+        
+        <node pkg="msg_collector" type="msg_collector_observation" name="msg_collector" output="screen">
+            <param name="input_topics" value="observation_own" />
+            <param name="output_topics" value="observation_collector_r" />
+            <param name="min_msg_interval" value="0.1" />
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
             <param name="base_ns" value="$(arg r_ns)" />
-            <param name="range" value="5" />
-            <param name="retrans_own_topics" value="true" />
+            <param name="loop_rate" value="50" />
+            <param name="retrans_own_topics" value="false" />
         </node>
-
-
-        
+  
     </group>
 </launch>
