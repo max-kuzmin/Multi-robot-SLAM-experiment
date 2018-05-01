@@ -36,7 +36,7 @@
             <param name="output_topics" value="observation_inrange_r$(arg r_id)" />
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
-            <param name="range" value="20" />
+            <param name="range" value="10" />
             <param name="base_ns" value="$(arg r_ns)" />
             <param name="retrans_own_topics" value="false" />
         </node>
@@ -48,24 +48,29 @@
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
             <param name="base_ns" value="$(arg r_ns)" />
-            <param name="loop_rate" value="20" />
+            <param name="loop_rate" value="50" />
             <param name="retrans_own_topics" value="false" />
         </node>
         
         <group>
             <env name="ROSCONSOLE_CONFIG_FILE" value="$(find mrslam_sim)/param/rosconsole.config"/>
-            <param name="ini_filename" value="$(find mrslam_sim)/param/mrpt_rbpf.ini"/>
+            <param name="ini_filename" value="$(find mrslam_sim)/param/mrpt_icp2d.ini"/>
             <param name="odom_frame_id" value="$(arg r_ns)$(arg r_id)/odom"/>
             <param name="global_frame_id" value="$(arg r_ns)$(arg r_id)/map"/>
             <param name="base_frame_id" value="$(arg r_ns)$(arg r_id)/base_footprint"/>
             <param name="sensor_source" value="scan"/>
+            <param name="trajectory_update_rate" value="10"/>
+            <param name="trajectory_publish_rate" value="5"/>
             
             <param name="run_multi_robot" value="true"/>
             <param name="robots_source" value="observation_inrange_r$(arg r_id)"/>
             <param name="base_ns" value="robot"/>
             <param name="robots_count" value="2"/>
+            <param name="init_x" value="$(arg x)" />
+            <param name="init_y" value="$(arg y)" />
+            <param name="init_phi" value="0" />
             
-            <node pkg="mrpt_rbpf_slam" type="mrpt_rbpf_slam" name="mrpt_rbpf_slam" output="screen">
+            <node pkg="mrpt_icp_slam_2d" type="mrpt_icp_slam_2d" name="mrpt_icp_slam_2d" output="screen">
                 <remap from="/$(arg r_ns)$(arg r_id)/observation_inrange_r$(arg r_id)" to="/$(arg r_ns)$(arg r_id)/observation_own"/>
             </node>
         </group>

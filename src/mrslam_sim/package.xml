@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>mrslam_sim</name>
-  <version>0.0.0</version>
-  <description>The mrslam_sim package</description>
+  <version>1.0.0</version>
+  <description>Multi-robot SLAM simulation experiment</description>
   <maintainer email="max_kuzmin@outlook.com">Maxim Kuzmin</maintainer>
-  <license>TODO</license>
+  <license>BSD3</license>
   <buildtool_depend>catkin</buildtool_depend>
   <export>
   <depend>map_to_pose</depend>
@@ -13,5 +13,6 @@
   <depend>turtlebot3_description</depend>
   <depend>multirobot_map_merge</depend>
   <depend>hector_slam</depend>
+  <depend>mrpt_slam</depend>
   </export>
 </package>

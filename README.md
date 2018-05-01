@@ -1,4 +1,4 @@
-# ROS-SLAM-playground
+# Multi-robot SLAM simulation experiment
 
 These simulations use:
 * Robot - Turtlebot 3
