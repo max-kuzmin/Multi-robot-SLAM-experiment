@@ -14,9 +14,9 @@
         <arg name="debug" value="false" />
     </include>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/mm_gmapping_multirobotmapmerge.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/mm_gmapping_mexplore_mapmerge.rviz" />
 
-    <include file="$(find mrslam_sim)/launch/_robot_m_gmapping_multirobotmapmerge.launch">
+    <include file="$(find mrslam_sim)/launch/_robot_m_gmapping_mexplore_mapmerge.launch">
         <arg name="x" value="$(arg x)" />
         <arg name="y" value="$(arg y)" />
         <arg name="z" value="0" />
