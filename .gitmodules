@@ -1,0 +1,40 @@
+[submodule "src/m-explore"]
+	path = src/m-explore
+	url = https://github.com/MaxGsomGsom/m-explore
+
+[submodule "src/cg_mrslam"]
+	path = src/cg_mrslam
+	url = https://github.com/MaxGsomGsom/cg_mrslam
+
+[submodule "src/map_merging"]
+	path = src/map_merging
+	url = https://github.com/MaxGsomGsom/map_merging
+
+[submodule "src/ohm_tsd_slam"]
+	path = src/ohm_tsd_slam
+	url = https://github.com/MaxGsomGsom/ohm_tsd_slam
+
+[submodule "src/mrpt_slam"]
+	path = src/mrpt_slam
+	url = https://github.com/MaxGsomGsom/mrpt_slam
+
+[submodule "src/navigation_2d"]
+	path = src/navigation_2d
+	url = https://github.com/MaxGsomGsom/navigation_2d
+
+[submodule "src/mrpt_dependences/pose_cov_ops"]
+	path = src/mrpt_dependences/pose_cov_ops
+	url = https://github.com/mrpt-ros-pkg/pose_cov_ops
+
+[submodule "src/mrpt_dependences/mrpt_msgs"]
+	path = src/mrpt_dependences/mrpt_msgs
+	url = https://github.com/mrpt-ros-pkg/mrpt_msgs
+
+[submodule "src/mrpt_dependences/mrpt_navigation"]
+	path = src/mrpt_dependences/mrpt_navigation
+	url = https://github.com/mrpt-ros-pkg/mrpt_navigation
+
+[submodule "src/mrpt_dependences/mrpt_bridge"]
+	path = src/mrpt_dependences/mrpt_bridge
+	url = https://github.com/mrpt-ros-pkg/mrpt_bridge
+

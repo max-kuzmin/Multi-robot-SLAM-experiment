@@ -34,7 +34,7 @@ mm_gmapping_mapmerging_step3.sh
 ```
 Launch of simulation separated on 3 steps, because of some problems with time syncronization.
 
-2.1. Map merging algorithm [m-explore/map_merge](https://github.com/hrnr/m-explore) based on OpenCV library matchers. 
+2.1. Map merging algorithm [m-explore/map_merge](https://github.com/MaxGsomGsom/m-explore) based on OpenCV library matchers. 
 Does not require knowledge of initial positions of robots. [G-mapping](https://github.com/ros-perception/slam_gmapping) used as base SLAM.
 ```
 roslaunch mrslam_sim m_gmapping_mexplore_mapmerge.launch
