@@ -2,7 +2,7 @@
     <arg name="gazebo_gui" default="false" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="worlds/willowgarage.world" />
+        <arg name="world_name" value="$(find mrslam_sim)/worlds/willowgarage.world" />
         <arg name="paused" value="false" />
         <arg name="use_sim_time" value="true" />
         <arg name="gui" value="$(arg gazebo_gui)" />
@@ -14,8 +14,8 @@
 
     <!--Robot 1-->
     <include file="$(find mrslam_sim)/launch/_robot_m_gmapping_mapmerging.launch">
-        <arg name="x" value="6" />
-        <arg name="y" value="-6" />
+        <arg name="x" value="5" />
+        <arg name="y" value="-5" />
         <arg name="z" value="0" />
         <arg name="robot_name" value="robot1" />
         <arg name="model" value="burger" />
@@ -23,14 +23,15 @@
     
     <!--Robot 2-->
     <include file="$(find mrslam_sim)/launch/_robot_m_gmapping_mapmerging.launch">
-        <arg name="x" value="-10" />
-        <arg name="y" value="10" />
+        <arg name="x" value="11" />
+        <arg name="y" value="-5" />
         <arg name="z" value="0" />
         <arg name="robot_name" value="robot2" />
         <arg name="model" value="burger" />
     </include>
 
     <!--Robot 3-->
+    <!--
     <include file="$(find mrslam_sim)/launch/_robot_m_gmapping_mapmerging.launch">
         <arg name="x" value="10" />
         <arg name="y" value="-10" />
@@ -38,4 +39,5 @@
         <arg name="robot_name" value="robot3" />
         <arg name="model" value="burger" />
     </include>
+    -->
 </launch>

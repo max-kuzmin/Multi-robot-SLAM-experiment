@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /TF1/Frames1
-        - /Image1/Status1
       Splitter Ratio: 0.594406009
     Tree Height: 775
   - Class: rviz/Selection
@@ -126,33 +125,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        camera_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_rgb_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_rgb_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        caster_back_left_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        caster_back_right_link:
+        caster_back_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -302,7 +275,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -1.57499993
+      Angle: 0.00499924831
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
@@ -315,8 +288,8 @@ Visualization Manager:
       Scale: 79.1648407
       Target Frame: map
       Value: TopDownOrtho (rviz)
-      X: 5.15626621
-      Y: -7.94234657
+      X: 8.12712955
+      Y: -5.00446796
     Saved: ~
 Window Geometry:
   Displays:

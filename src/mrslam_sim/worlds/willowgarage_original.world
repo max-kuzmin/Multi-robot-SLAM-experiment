@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://willowgarage</uri>
+    </include>
+    <!-- Change value to slow time in gazebo simulation in cases when PC resources not enough -->
+    <physics type='ode' default='true'>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+          <min_step_size>0.0001</min_step_size>
+        </solver>
+      </ode>
+      <real_time_update_rate>500</real_time_update_rate>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+  </world>
+</sdf>

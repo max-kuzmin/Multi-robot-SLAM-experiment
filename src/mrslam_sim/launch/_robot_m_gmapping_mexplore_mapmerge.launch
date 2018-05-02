@@ -5,6 +5,7 @@
     <arg name="z" default="0"/>
     <arg name="r_id" />
     <arg name="r_count" />
+    <arg name="map_size" default="60"/>
     <arg name="r_ns" default="robot"/> <!-- base namespace without robot number, must be the same for all -->
 
     <group ns="$(arg r_ns)$(arg r_id)">
@@ -36,9 +37,10 @@
         </node>
 
         <!--tf_prefix fix for rviz-->
+        <arg name="offset" value="$(eval arg('map_size')/2)" />
         <node pkg="tf" type="static_transform_publisher" name="world_tf" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/$(arg r_ns)$(arg r_id)/map 100" />
         <node pkg="tf" type="static_transform_publisher" name="map_to_rviz" args="0 0 0 0 0 0 world $(arg r_ns)$(arg r_id)/map 100" />
-        <node pkg="tf" type="static_transform_publisher" name="map_merged_tf" args="-30 -30 0 0 0 0 world $(arg r_ns)$(arg r_id)/map_merged 100" />
+        <node pkg="tf" type="static_transform_publisher" name="map_merged_tf" args="-$(arg offset) -$(arg offset) 0 0 0 0 world $(arg r_ns)$(arg r_id)/map_merged 100" />
 
 
         <node pkg="range_ctrl" type="range_ctrl_occupancy_grid" name="range_ctrl" output="screen">
@@ -47,12 +49,12 @@
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
             <param name="base_ns" value="$(arg r_ns)" />
-            <param name="range" value="5" />
+            <param name="range" value="10" />
             <param name="retrans_own_topics" value="true" />
         </node>
 
         <node pkg="multirobot_map_merge" type="map_merge" name="map_merge" output="screen">
-            <param name="known_init_poses" value="true" />
+            <param name="known_init_poses" value="false" />
             <param name="merged_map_topic" value="map_merged" />
             <param name="init_pose_x" value="$(arg x)" />
             <param name="init_pose_y" value="$(arg y)" />
