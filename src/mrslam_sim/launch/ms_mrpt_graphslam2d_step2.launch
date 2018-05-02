@@ -11,8 +11,10 @@
             <rosparam param="sync_nodes">['*mrpt_graphslam_2d_mr*']</rosparam>
             <rosparam param="ignore_topics">['*/scan', '*/odom', '/tf', '/tf_static']</rosparam>
         </node>
+        <!--
         <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard"  output="log">
             <remap from="/cmd_vel" to="/$(arg r_ns)$(arg r_id)/cmd_vel"/>
         </node>
+        -->
     </group>
 </launch>

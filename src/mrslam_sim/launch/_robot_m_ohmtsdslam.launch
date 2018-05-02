@@ -44,7 +44,7 @@
             <param name="output_topics" value="scan_inrange_r$(arg r_id)" />
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
-            <param name="range" value="5" />
+            <param name="range" value="10" />
             <param name="base_ns" value="$(arg r_ns)" />
             <param name="retrans_own_topics" value="true" />
         </node>
@@ -67,7 +67,7 @@
             <param name="map_size" value="10.5" />
             <param name="x_offset" value="-$(arg this_x)" />
             <param name="y_offset" value="-$(arg this_y)" />
-            <param name="cellsize" value="0.015" />
+            <param name="cellsize" value="0.025" />
             <param name="low_reflectivity_range" value="3.5" />
             <param name="occ_grid_time_interval" value="2.0" />
             <param name="truncation_radius" value="3.5" />

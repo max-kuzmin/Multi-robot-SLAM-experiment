@@ -2,7 +2,7 @@
     <arg name="gazebo_gui" default="false" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="worlds/willowgarage.world" />
+        <arg name="world_name" value="$(find mrslam_sim)/worlds/willowgarage.world" />
         <arg name="paused" value="false" />
         <arg name="use_sim_time" value="true" />
         <arg name="gui" value="$(arg gazebo_gui)" />
@@ -10,14 +10,14 @@
         <arg name="debug" value="false" />
     </include>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/m_ohmtdsslam.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mrslam_sim)/rviz/m_ohmtsdslam.rviz" />
 
     <!--Robot 0-->
-    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtdsslam.launch">
-        <arg name="x0" value="4" />
+    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtsdslam.launch">
+        <arg name="x0" value="5" />
         <arg name="y0" value="-5" />
-        <arg name="x1" value="4" />
-        <arg name="y1" value="2" />
+        <arg name="x1" value="11" />
+        <arg name="y1" value="-5" />
         <arg name="x2" value="0" />
         <arg name="y2" value="0" />
         <arg name="model" value="burger" />
@@ -26,11 +26,11 @@
     </include>
     
     <!--Robot 1-->
-    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtdsslam.launch">
-        <arg name="x0" value="4" />
+    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtsdslam.launch">
+        <arg name="x0" value="5" />
         <arg name="y0" value="-5" />
-        <arg name="x1" value="4" />
-        <arg name="y1" value="2" />
+        <arg name="x1" value="11" />
+        <arg name="y1" value="-5" />
         <arg name="x2" value="0" />
         <arg name="y2" value="0" />
         <arg name="model" value="burger" />
@@ -40,7 +40,7 @@
 
     <!--Robot 2-->
     <!--
-    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtdsslam.launch">
+    <include file="$(find mrslam_sim)/launch/_robot_m_ohmtsdslam.launch">
         <arg name="x0" value="4" />
         <arg name="y0" value="-5" />
         <arg name="x1" value="4" />

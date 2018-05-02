@@ -9,7 +9,7 @@
         <arg name="gazebo_gui" default="false" />
     
         <include file="$(find gazebo_ros)/launch/empty_world.launch">
-            <arg name="world_name" value="worlds/willowgarage.world" />
+            <arg name="world_name" value="$(find mrslam_sim)/worlds/willowgarage.world" />
             <arg name="paused" value="false" />
             <arg name="use_sim_time" value="true" />
             <arg name="gui" value="$(arg gazebo_gui)" />
