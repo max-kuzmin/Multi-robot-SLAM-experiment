@@ -37,7 +37,7 @@
             <param name="r_count" value="$(arg r_count)" />
             <param name="r_id" value="$(arg r_id)" />
             <param name="base_ns" value="$(arg r_ns)" />
-            <param name="range" value="5" />
+            <param name="range" value="10" />
             <param name="retrans_own_topics" value="false" />
         </node>
 
