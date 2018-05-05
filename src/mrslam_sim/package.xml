@@ -7,12 +7,20 @@
   <license>BSD3</license>
   <buildtool_depend>catkin</buildtool_depend>
   <export>
-  <depend>map_to_pose</depend>
-  <depend>multimaster_fkie</depend>
-  <depend>map_merging</depend>
-  <depend>turtlebot3_description</depend>
+  <depend>cg_mrslam</depend>
   <depend>multirobot_map_merge</depend>
-  <depend>hector_slam</depend>
+  <depend>map_merging</depend>
+  <depend>map_to_pose</depend>
+  <depend>metrics</depend>
   <depend>mrpt_slam</depend>
+  <depend>mrpt_bridge</depend>
+  <depend>nav2d</depend>
+  <depend>ohm_tsd_slam</depend>
+  <depend>range_ctrl</depend>  
+  <depend>turtlebot3_description</depend>
+  <depend>multimaster_fkie</depend>
+  <depend>gmapping</depend>
+  <depend>hector_slam</depend>
+  <depend>move_base</depend>
   </export>
 </package>

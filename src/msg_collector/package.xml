@@ -3,7 +3,7 @@
   <name>msg_collector</name>
   <version>0.0.0</version>
   <description>The msg_collector package</description>
-  <maintainer email="max@todo.todo">max</maintainer>
+  <maintainer email="max_kuzmin@outlook.com">Maxim Kuzmin</maintainer>
   <license>TODO</license>
 
   <depend>roscpp</depend>
