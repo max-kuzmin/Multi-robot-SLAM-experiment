@@ -2,7 +2,9 @@
 
     <group ns="robot0">
         <param name="tf_prefix" value="robot0"/>
-        <node name="metrics_node" pkg="metrics" type="metrics_node" output="log"/>
+        <node name="metrics_node" pkg="metrics" type="metrics_node" output="screen"/>
+        <param name="offset_x" value="0"/>
+        <param name="offset_y" value="0"/>
     </group>
 
 2. Also add range_ctrl node to get connection times

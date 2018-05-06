@@ -106,7 +106,7 @@ class NodeBase
       }
       
       connection_time.resize(r_count);
-      times_file.open(base_ns + to_string(r_id) + "_times.txt");
+      times_file.open(base_ns + to_string(r_id) + "_times.csv");
   }
 
   int loop()

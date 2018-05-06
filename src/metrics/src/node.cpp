@@ -25,6 +25,10 @@ int main(int argc, char** argv)
     node.param("tf_prefix", tf_prefix, tf_prefix);
     if (tf_prefix.length()>0) tf_prefix+="/";
     
+    double offset_x, offset_y;
+    node.param("offset_x", offset_x, 0.0);
+    node.param("offset_y", offset_y, 0.0);
+    
     ros::Subscriber ground_truth_sub = node.subscribe<nav_msgs::Odometry>(
                 "ground_truth", 100, ground_truth_callback);
 
@@ -45,9 +49,8 @@ int main(int argc, char** argv)
             geometry_msgs::TransformStamped ts = tfBuffer.lookupTransform(tf_prefix+"map", tf_prefix+"base_footprint", ros::Time(0));
             geometry_msgs::Pose estimated_pose;
             estimated_pose.orientation = ts.transform.rotation;
-            estimated_pose.position.x = ts.transform.translation.x;
-            estimated_pose.position.y = ts.transform.translation.y;
-            estimated_pose.position.z = ts.transform.translation.z;
+            estimated_pose.position.x = ts.transform.translation.x + offset_x;
+            estimated_pose.position.y = ts.transform.translation.y + offset_y;
             
             double dev_x = abs(estimated_pose.position.x - ground_pose.position.x);
             double dev_y = abs(estimated_pose.position.y - ground_pose.position.y);
