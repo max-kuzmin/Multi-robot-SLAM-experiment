@@ -103,7 +103,7 @@ void cornerHarris(int, void*)
 void calcKnnDistance(int, void*)
 {
     Mat estimated = src_gray.clone();
-    Mat src_clone = src_gray.clone();
+    Mat src_clone = src.clone();
     Mat original_grey;
     cvtColor(original, original_grey, COLOR_BGR2GRAY);
     double sum_distance = 0;
@@ -116,7 +116,7 @@ void calcKnnDistance(int, void*)
             if (estimated.at<uchar>(j, i) < thresh_knn) {
                 
                 double min_distance = sqrt(2 * window * window);
-                src_clone.at<uchar>(j,i) = 255; //visualisation
+                src_clone.at<Vec3b>(j,i)[1] = 255; //visualisation
                 for (int l = (j - window) < 0 ? 0 : (j - window); l < original_grey.rows && l < j + window; l++) {
 
                     for (int m = (i - window) < 0 ? 0 : (i - window); m < original_grey.cols && m < i + window; m++) {
@@ -141,6 +141,7 @@ void calcKnnDistance(int, void*)
         for (int m = 0; m < original_grey.cols; m++) {
             if (original_grey.at<uchar>(l, m) < thresh_knn) {
                 occuped++;
+                src_clone.at<Vec3b>(l,m)[2] = 255; //visualisation
             }
         }
     }
