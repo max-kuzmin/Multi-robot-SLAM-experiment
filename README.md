@@ -33,7 +33,7 @@ Then run these commands:
 ```
 git clone --recurse-submodules https://github.com/MaxGsomGsom/Multi-robot-SLAM-experiment
 cd Multi-robot-SLAM-experiment
-rosdep install --from-paths src --ignore-src --rosdistro=kinetic --skip-keys=mrpt --skip-keys=mvsim
+rosdep install --from-paths src --ignore-src --rosdistro=kinetic --skip-keys=mrpt --skip-keys=mvsim --skip-keys=mrpt1
 catkin_make -j1
 ```
 
