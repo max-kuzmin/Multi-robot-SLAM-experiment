@@ -32,9 +32,9 @@
 
 [submodule "src/mrpt_dependences/mrpt_navigation"]
 	path = src/mrpt_dependences/mrpt_navigation
-	url = https://github.com/mrpt-ros-pkg/mrpt_navigation
+	url = https://github.com/MaxGsomGsom/mrpt_navigation
 
 [submodule "src/mrpt_dependences/mrpt_bridge"]
 	path = src/mrpt_dependences/mrpt_bridge
-	url = https://github.com/mrpt-ros-pkg/mrpt_bridge
+	url = https://github.com/MaxGsomGsom/mrpt_bridge
 

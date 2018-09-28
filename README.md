@@ -23,18 +23,18 @@ When connection established again, it sends all saved messages. It's very useful
 You can control robots inside RViz by selecting green arrows on top panel and pointing on the map.
 
 ##### Installation
-Install **GCC 7** as default compiler, older versions aren't supported by some packages.
-Also install some dependences from sources:
-* [**MRPT 1.9.9**](https://github.com/MRPT/mrpt)
-* [**G2O**](https://github.com/RainerKuemmerle/g2o)
-* [**Obviously**](https://github.com/autonohm/obviously)
+Install [**GCC 7**](https://gist.github.com/jlblancoc/99521194aba975286c80f93e47966dc5) as default compiler, old versions aren't supported by some packages.
+Also install this dependences **strictly from sources** (use versions by links, or there may be compilation errors):
+* [**MRPT 1.9.9**](https://github.com/MRPT/mrpt/tree/974840e7d839c20ab91e99d97e5cfd9c8a9ac211) - clone, run `sudo apt-get install libsuitesparse-dev`, run `cd build && cmake`, then `sudo make install`
+* [**G2O**](https://github.com/RainerKuemmerle/g2o/tree/c2f4eb8271d19476fa7934c485d2508f3277fbd3) - clone, run `cmake`, run `sudo make install`
+* [**Obviously**](https://github.com/MaxGsomGsom/obviously) - clone, run `sudo ./installObviously`, run `cd build/release && cmake`, then `make`
 
-Then run:
+Then run these commands:
 ```
-git clone https://github.com/MaxGsomGsom/Multi-robot-SLAM-experiment
+git clone --recurse-submodules https://github.com/MaxGsomGsom/Multi-robot-SLAM-experiment
 cd Multi-robot-SLAM-experiment
-rosdep install --from-paths . --ignore-src --rosdistro=kinetic
-catkin_make
+rosdep install --from-paths src --ignore-src --rosdistro=kinetic --skip-keys=mrpt --skip-keys=mvsim
+catkin_make -j1
 ```
 
 ##### Smulations
